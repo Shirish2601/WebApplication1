@@ -15,25 +15,28 @@ namespace WebApplication1.Controllers
             _machineRepository = machineRepository;
         }
 
-        [HttpGet("machinename")]
-        public ActionResult GetAsset(string machinename)
+        [HttpGet("{machineName}")]
+        public ActionResult<Asset> GetAsset(string? machineName)
         {
             try 
             {
-                if (machinename != null)
+                if (machineName != null)
                 {
-                    return Ok(_machineRepository.GetAsset(machinename));
+                    return Ok(_machineRepository.GetAsset(machineName));
+                }
+                else
+                {
+                    return BadRequest("Please Enter Machine Name");
                 }
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
             }
-            return BadRequest("Please enter valid Machine name");
         }
 
         [HttpGet]
-        public ActionResult GetAssets()
+        public ActionResult<IEnumerable<Asset>> GetAssets()
         {
             try
             {

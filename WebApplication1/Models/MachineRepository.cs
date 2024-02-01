@@ -8,6 +8,7 @@
             DataReader = new FileReader();
             DataReader.Read(@"C:\Users\Hadp_shi\Desktop\Shirish\New folder\WebApplication1\Models\Matrix.txt");
         }
+
         public List<Asset> GetAsset(string? machineName)
         {
             return DataReader.Machines.Where(machine => machine.MachineName == machineName).First().Assets;
@@ -24,6 +25,11 @@
                 }
             }
             return assetList;
+        }
+
+        public List<string> GetMachines(string? assetName)
+        {
+            return DataReader.Machines.Where(machine => machine.Assets.Any(asset => asset.AssetName.ToLower() == assetName.ToLower())).Select(machine => machine.MachineName).ToList();
         }
     }
 }

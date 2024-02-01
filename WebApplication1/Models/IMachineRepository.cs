@@ -4,5 +4,6 @@
     {
         public Dictionary<string, List<Asset>> GetAssets(); 
         public List<Asset> GetAsset(string? machineName); 
+        public List<string> GetMachines(string? assetName);
     }
 }

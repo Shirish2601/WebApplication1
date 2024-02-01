@@ -4,23 +4,22 @@
     {
         public override void Read(string? path)
         {
-            if (path is not null)
+            if (path != null)
             {
                 List<string> machineList = new();
                 using (StreamReader sr = new StreamReader(path))
                 {
-                    string? current = sr.ReadLine();
-                    while (current != null)
+                    string? current = string.Empty;
+                    while ((current = sr.ReadLine()) != null)
                     {
-                        current = sr.ReadLine();
                         string[]? contents = current?.Split(",");
-                        var machineName = contents?[0];
+                        var machineName = contents?[0].Trim();
                         if (machineName is not null && !machineList.Contains(machineName))
                         {
                             var asset = new Asset
                             {
-                                AssetName = contents?[1],
-                                SeriesNumber = contents?[2]
+                                AssetName = contents?[1].Trim(),
+                                SeriesNumber = contents?[2].Trim()
                             };
                             var machine = new Machine
                             {
@@ -34,8 +33,8 @@
                         {
                             var asset = new Asset
                             {
-                                AssetName = contents?[1],
-                                SeriesNumber = contents?[2]
+                                AssetName = contents?[1].Trim(),
+                                SeriesNumber = contents?[2].Trim()
                             };
                             var currentMachine = Machines.Find(machine => machine.MachineName == machineName);
                             currentMachine?.Assets.Add(asset);
