@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Models;
+using MachineManagement.Models;
+using MachineManagement.Api.Models;
 
-namespace WebApplication1.Controllers
+namespace MachineManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

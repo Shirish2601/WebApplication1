@@ -1,4 +1,6 @@
-﻿namespace WebApplication1.Models
+﻿using MachineManagement.Models;
+
+namespace MachineManagement.Api.Models
 {
     public class FileReader : DataReader
     {

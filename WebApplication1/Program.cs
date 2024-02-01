@@ -1,4 +1,4 @@
-using WebApplication1.Models;
+using MachineManagement.Api.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

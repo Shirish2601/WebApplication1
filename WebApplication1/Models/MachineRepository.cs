@@ -1,4 +1,6 @@
-﻿namespace WebApplication1.Models
+﻿using MachineManagement.Models;
+
+namespace MachineManagement.Api.Models
 {
     public class MachineRepository : IMachineRepository
     {
@@ -6,12 +8,12 @@
         public MachineRepository()
         {
             DataReader = new FileReader();
-            DataReader.Read(@"C:\Users\Hadp_shi\Desktop\Shirish\New folder\WebApplication1\Models\Matrix.txt");
+            DataReader.Read(@"C:\Users\Hadp_shi\Desktop\Shirish\New folder\WebApplication1\WebApplication1\Models\Matrix.txt");
         }
 
         public List<Asset> GetAsset(string? machineName)
         {
-            return DataReader.Machines.Where(machine => machine.MachineName == machineName).First().Assets;
+            return DataReader.Machines.Where(machine => machine.MachineName?.ToLower() == machineName?.ToLower()).First().Assets;
         }
 
         public Dictionary<string, List<Asset>> GetAssets()
@@ -29,7 +31,7 @@
 
         public List<string> GetMachines(string? assetName)
         {
-            return DataReader.Machines.Where(machine => machine.Assets.Any(asset => asset.AssetName.ToLower() == assetName.ToLower())).Select(machine => machine.MachineName).ToList();
+            return DataReader.Machines.Where(machine => machine.Assets.Any(asset => asset.AssetName?.ToLower() == assetName?.ToLower())).Select(machine => machine.MachineName).ToList();
         }
 
         public List<string> GetMachineThatUsesLatestAssets()
@@ -39,13 +41,13 @@
             {
                 foreach (var asset in machine.Assets)
                 {
-                    if (!assetDictionary.ContainsKey(asset.AssetName))
+                    if (asset.AssetName!= null && !assetDictionary.ContainsKey(asset.AssetName))
                     {
-                        assetDictionary.Add(asset.AssetName, Convert.ToInt32(asset.SeriesNumber.Substring(1)));
+                        assetDictionary.Add(asset.AssetName, Convert.ToInt32(asset.SeriesNumber?.Substring(1)));
                     }
                     else
                     {
-                        int currentSeriesNumber = Convert.ToInt32(asset.SeriesNumber.Substring(1));
+                        int currentSeriesNumber = Convert.ToInt32(asset.SeriesNumber?.Substring(1));
                         int currentDictionarySeriesNumber = assetDictionary[asset.AssetName];
 
                         assetDictionary[asset.AssetName] = Math.Max(currentSeriesNumber, currentDictionarySeriesNumber);
@@ -60,13 +62,13 @@
 
                 foreach (var asset in machine.Assets)
                 {
-                   if (Convert.ToInt32(asset.SeriesNumber.Substring(1)) != assetDictionary[asset.AssetName])
+                   if (asset.AssetName != null && Convert.ToInt32(asset.SeriesNumber?.Substring(1)) != assetDictionary[asset.AssetName])
                    {
                         found = false;
                         break;
                    }
                 }
-                if (found)
+                if (found && machine.MachineName != null)
                 {
                     machineThatUsesLatestAssets.Add(machine.MachineName);
                 }
