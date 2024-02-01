@@ -1,6 +1,7 @@
-﻿using MachineManagement.Models;
+﻿
+using AssetManagement.Models;
 
-namespace MachineManagement.Api.Models
+namespace AssetManagement.Api.Models
 {
     public abstract class DataReader
     {

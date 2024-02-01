@@ -2,7 +2,7 @@
 using AssetManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace MachineManagement.Web.Pages
+namespace AssetManagement.Web.Pages
 {
     public class IndexBase : ComponentBase
     {

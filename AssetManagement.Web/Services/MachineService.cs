@@ -6,9 +6,9 @@ namespace AssetManagement.Web.Services
     {
         private readonly HttpClient _httpClient;
 
-        public MachineService(HttpClient httpClient) 
+        public MachineService(HttpClient httpClient)
         {
-            _httpClient = httpClient;    
+            _httpClient = httpClient;
         }
 
         public async Task<Asset> GetAssets(string? machineName)

@@ -1,7 +1,7 @@
-﻿using MachineManagement.Models;
+﻿using AssetManagement.Models;
 using Newtonsoft.Json;
 
-namespace MachineManagement.Api.Models
+namespace AssetManagement.Api.Models
 {
     public class JsonReader : DataReader
     {

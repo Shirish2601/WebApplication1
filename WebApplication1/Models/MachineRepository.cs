@@ -1,14 +1,15 @@
-﻿using MachineManagement.Models;
+﻿
+using AssetManagement.Models;
 
-namespace MachineManagement.Api.Models
+namespace AssetManagement.Api.Models
 {
     public class MachineRepository : IMachineRepository
     {
         public DataReader DataReader;
         public MachineRepository()
         {
-            DataReader = new JsonReader();
-            DataReader.Read(@"C:\Users\Hadp_shi\Desktop\Shirish\New folder\WebApplication1\WebApplication1\Models\Matrix.json");
+            DataReader = new FileReader();
+            DataReader.Read(@"C:\Users\hadpa\Desktop\C#\WebApplication1\WebApplication1\Models\Matrix.txt");
         }
 
         public List<Asset> GetAsset(string? machineName)

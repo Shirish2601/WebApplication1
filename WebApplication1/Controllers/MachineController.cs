@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AssetManagement.Api.Models;
+using AssetManagement.Models;
 using Microsoft.AspNetCore.Mvc;
-using MachineManagement.Models;
-using MachineManagement.Api.Models;
 
-namespace MachineManagement.Api.Controllers
+namespace AssetManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

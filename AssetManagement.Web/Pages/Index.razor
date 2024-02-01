@@ -1,0 +1,32 @@
+﻿@page "/"
+@inherits IndexBase
+<PageTitle>Index</PageTitle>
+
+<div>
+    <table>
+        @if (Machines != null)
+        {
+            <thead>
+                <tr>
+                    <th>Machine Name</th>
+                    <th>Asset Name</th>
+                    <th @onclick="@SortHandler">Series Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var machine in Machines)
+                {
+                    var assets = machine.Assets;
+                    foreach (var asset in assets)
+                    {
+                        <tr>
+                            <td>@machine.MachineName</td>
+                            <td>@asset.AssetName</td>
+                            <td>@asset.SeriesNumber</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        }
+    </table>
+</div>

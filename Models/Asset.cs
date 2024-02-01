@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MachineManagement.Models
+namespace AssetManagement.Models
 {
     public class Asset
     {
