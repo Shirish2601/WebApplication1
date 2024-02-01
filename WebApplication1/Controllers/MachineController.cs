@@ -37,11 +37,11 @@ namespace MachineManagement.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Dictionary<string, List<Asset>>> GetAssets()
+        public ActionResult<List<Machine>> GetMachines()
         {
             try
             {
-                return Ok(_machineRepository.GetAssets());
+                return Ok(_machineRepository.GetMachines());
             }
             catch (Exception)
             {

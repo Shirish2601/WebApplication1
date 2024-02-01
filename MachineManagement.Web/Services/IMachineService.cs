@@ -6,6 +6,6 @@ namespace MachineManagement.Web.Services
     public interface IMachineService
     {
         Task<Asset> GetAssets(string? machineName);
-        Task<Dictionary<string, List<Asset>>> GetAssets();
+        Task<List<Machine>> GetMachines();
     }
 }

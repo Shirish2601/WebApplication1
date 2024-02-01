@@ -16,17 +16,9 @@ namespace MachineManagement.Api.Models
             return DataReader.Machines.Where(machine => machine.MachineName?.ToLower() == machineName?.ToLower()).First().Assets;
         }
 
-        public Dictionary<string, List<Asset>> GetAssets()
+        public List<Machine> GetMachines()
         {
-            Dictionary<string, List<Asset>> assetList = new();
-            foreach (var machine in DataReader.Machines)
-            {
-                if (machine.MachineName != null &&  !assetList.ContainsKey(machine.MachineName))
-                {
-                    assetList.Add(machine.MachineName,machine.Assets);
-                }
-            }
-            return assetList;
+            return DataReader.Machines;
         }
 
         public List<string> GetMachines(string? assetName)

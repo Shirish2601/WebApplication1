@@ -8,11 +8,14 @@ namespace MachineManagement.Web.Pages
     {
         [Inject]
         public IMachineService MachineService { get; set; }
-        public Dictionary<string,List<Asset>> Machines { get; set; } = new();
+        public List<Machine> Machines { get; set; } = new();
 
         protected override async Task OnInitializedAsync()
         {
-            Machines = await MachineService.GetAssets();
+            Machines = await MachineService.GetMachines();
+        }
+        protected void SortHandler()
+        {
         }
     }
 }

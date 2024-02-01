@@ -16,9 +16,9 @@ namespace MachineManagement.Web.Services
             return await _httpClient.GetFromJsonAsync<Asset>($"api/Machine/{machineName}/assets");
         }
 
-        public async Task<Dictionary<string, List<Asset>>> GetAssets()
+        public async Task<List<Machine>> GetMachines()
         {
-            return await _httpClient.GetFromJsonAsync<Dictionary<string, List<Asset>>>($"api/Machine");
+            return await _httpClient.GetFromJsonAsync<List<Machine>>($"api/Machine");
         }
     }
 }

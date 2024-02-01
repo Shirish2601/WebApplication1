@@ -1,0 +1,152 @@
+[
+  {
+    "machineName": "Machine1",
+    "assetName": "Asset1",
+    "seriesNumber": "S1"
+  },
+  {
+    "machineName": "Machine2",
+    "assetName": "Asset2",
+    "seriesNumber": "S2"
+  },
+  {
+    "machineName": "Machine3",
+    "assetName": "Asset3",
+    "seriesNumber": "S3"
+  },
+  {
+    "machineName": "Machine4",
+    "assetName": "Asset4",
+    "seriesNumber": "S4"
+  },
+  {
+    "machineName": "Machine5",
+    "assetName": "Asset5",
+    "seriesNumber": "S5"
+  },
+  {
+    "machineName": "Machine6",
+    "assetName": "Asset6",
+    "seriesNumber": "S6"
+  },
+  {
+    "machineName": "Machine7",
+    "assetName": "Asset7",
+    "seriesNumber": "S7"
+  },
+  {
+    "machineName": "Machine8",
+    "assetName": "Asset8",
+    "seriesNumber": "S8"
+  },
+  {
+    "machineName": "Machine9",
+    "assetName": "Asset9",
+    "seriesNumber": "S9"
+  },
+  {
+    "machineName": "Machine10",
+    "assetName": "Asset10",
+    "seriesNumber": "S10"
+  },
+  {
+    "machineName": "Machine1",
+    "assetName": "Asset2",
+    "seriesNumber": "S11"
+  },
+  {
+    "machineName": "Machine2",
+    "assetName": "Asset3",
+    "seriesNumber": "S12"
+  },
+  {
+    "machineName": "Machine3",
+    "assetName": "Asset4",
+    "seriesNumber": "S13"
+  },
+  {
+    "machineName": "Machine4",
+    "assetName": "Asset5",
+    "seriesNumber": "S14"
+  },
+  {
+    "machineName": "Machine5",
+    "assetName": "Asset6",
+    "seriesNumber": "S15"
+  },
+  {
+    "machineName": "Machine6",
+    "assetName": "Asset7",
+    "seriesNumber": "S16"
+  },
+  {
+    "machineName": "Machine7",
+    "assetName": "Asset8",
+    "seriesNumber": "S17"
+  },
+  {
+    "machineName": "Machine8",
+    "assetName": "Asset9",
+    "seriesNumber": "S18"
+  },
+  {
+    "machineName": "Machine9",
+    "assetName": "Asset10",
+    "seriesNumber": "S19"
+  },
+  {
+    "machineName": "Machine10",
+    "assetName": "Asset1",
+    "seriesNumber": "S20"
+  },
+  {
+    "machineName": "Machine1",
+    "assetName": "Asset3",
+    "seriesNumber": "S21"
+  },
+  {
+    "machineName": "Machine2",
+    "assetName": "Asset4",
+    "seriesNumber": "S22"
+  },
+  {
+    "machineName": "Machine3",
+    "assetName": "Asset5",
+    "seriesNumber": "S23"
+  },
+  {
+    "machineName": "Machine4",
+    "assetName": "Asset6",
+    "seriesNumber": "S24"
+  },
+  {
+    "machineName": "Machine5",
+    "assetName": "Asset7",
+    "seriesNumber": "S25"
+  },
+  {
+    "machineName": "Machine6",
+    "assetName": "Asset8",
+    "seriesNumber": "S26"
+  },
+  {
+    "machineName": "Machine7",
+    "assetName": "Asset9",
+    "seriesNumber": "S27"
+  },
+  {
+    "machineName": "Machine8",
+    "assetName": "Asset10",
+    "seriesNumber": "S28"
+  },
+  {
+    "machineName": "Machine9",
+    "assetName": "Asset1",
+    "seriesNumber": "S29"
+  },
+  {
+    "machineName": "Machine10",
+    "assetName": "Asset2",
+    "seriesNumber": "S30"
+  }
+]

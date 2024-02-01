@@ -10,19 +10,19 @@
                 <tr>
                     <th>Machine Name</th>
                     <th>Asset Name</th>
-                    <th>Series Name</th>
+                    <th @onclick="@SortHandler">Series Name</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Machines)
+                @foreach (var machine in Machines)
                 {
-                    var values = item.Value;
-                    foreach (var value in values)
+                    var assets = machine.Assets;
+                    foreach (var asset in assets)
                     {
                         <tr>
-                            <td>@item.Key</td>
-                            <td>@value.AssetName</td>
-                            <td>@value.SeriesNumber</td>
+                            <td>@machine.MachineName</td>
+                            <td>@asset.AssetName</td>
+                            <td>@asset.SeriesNumber</td>
                         </tr>
                     }
                 }
