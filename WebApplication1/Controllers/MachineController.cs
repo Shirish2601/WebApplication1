@@ -15,7 +15,7 @@ namespace WebApplication1.Controllers
             _machineRepository = machineRepository;
         }
 
-        [HttpGet("{machineName}")]
+        [HttpGet("{machineName}/assets")]
         public ActionResult<Asset> GetAsset(string? machineName)
         {
             try 
@@ -43,6 +43,36 @@ namespace WebApplication1.Controllers
                 return Ok(_machineRepository.GetAssets());
             }
             catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+            }
+        }
+
+        [HttpGet("{assetName}/machine")]
+        public ActionResult<IEnumerable<string>> GetMachines(string? assetName)
+        {
+            try
+            {
+                if (assetName != null)
+                {
+                    return _machineRepository.GetMachines(assetName);
+                }
+                return BadRequest($"Please Enter Valid Machine Name");
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+            }
+        }
+
+        [HttpGet("latest-asset")]
+        public ActionResult<IEnumerable<string>> GetMachinesThatUsesLatestAssets()
+        {
+            try
+            {
+                return Ok(_machineRepository.GetMachineThatUsesLatestAssets());
+            }
+            catch(Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
             }
