@@ -9,7 +9,7 @@ namespace AssetManagement.Api.Models
         public MachineRepository()
         {
             DataReader = new FileReader();
-            DataReader.Read(@"C:\Users\hadpa\Desktop\C#\WebApplication1\WebApplication1\Models\Matrix.txt");
+            DataReader.Read(@"C:\Users\hadpa\Desktop\C#\WebApplication1\AssetManagement.Api\Models\Matrix.txt");
         }
 
         public List<Asset> GetAsset(string? machineName)
