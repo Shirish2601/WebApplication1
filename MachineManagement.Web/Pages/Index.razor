@@ -1,3 +1,32 @@
 ﻿@page "/"
-
+@inherits IndexBase
 <PageTitle>Index</PageTitle>    
+
+<div>
+    <table>
+        @if (Machines != null)
+        {
+            <thead>
+                <tr>
+                    <th>Machine Name</th>
+                    <th>Asset Name</th>
+                    <th>Series Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Machines)
+                {
+                    var values = item.Value;
+                    foreach (var value in values)
+                    {
+                        <tr>
+                            <td>@item.Key</td>
+                            <td>@value.AssetName</td>
+                            <td>@value.SeriesNumber</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        }
+    </table>
+</div>

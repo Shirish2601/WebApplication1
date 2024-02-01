@@ -37,7 +37,7 @@ namespace MachineManagement.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Asset>> GetAssets()
+        public ActionResult<Dictionary<string, List<Asset>>> GetAssets()
         {
             try
             {
