@@ -28,7 +28,7 @@
                                 Assets = new() { asset }
                             };
                             machineList.Add(machineName);
-                            Machines?.Add(machine);
+                            Machines.Add(machine);
                         }
                         else
                         {
@@ -37,8 +37,8 @@
                                 AssetName = contents?[1],
                                 SeriesNumber = contents?[2]
                             };
-                            var currentMachine = Machines?.Find(machine => machine.MachineName == machineName);
-                            currentMachine?.Assets?.Add(asset);
+                            var currentMachine = Machines.Find(machine => machine.MachineName == machineName);
+                            currentMachine?.Assets.Add(asset);
                         }
                     }
                 }

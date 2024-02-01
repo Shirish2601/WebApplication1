@@ -10,8 +10,7 @@
         }
         public List<Asset> GetAsset(string? machineName)
         {
-            if (machineName is not null)
-                return DataReader.Machines.Where(machine => machine.MachineName == machineName).First().Assets;
+            return DataReader.Machines.Where(machine => machine.MachineName == machineName).First().Assets;
         }
 
         public Dictionary<string, List<Asset>> GetAssets()
@@ -19,9 +18,9 @@
             Dictionary<string, List<Asset>> assetList = new();
             foreach (var machine in DataReader.Machines)
             {
-                if (!assetList.ContainsKey(machine?.MachineName))
+                if (machine.MachineName != null &&  !assetList.ContainsKey(machine.MachineName))
                 {
-                    assetList.Add(machine?.MachineName,machine?.Assets);
+                    assetList.Add(machine.MachineName,machine.Assets);
                 }
             }
             return assetList;

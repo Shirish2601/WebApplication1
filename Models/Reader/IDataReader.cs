@@ -8,6 +8,6 @@ namespace Models.Reader
 {
     public interface IDataReader
     {
-        public void Read(string? path);
+        public void Read(string path);
     }
 }
