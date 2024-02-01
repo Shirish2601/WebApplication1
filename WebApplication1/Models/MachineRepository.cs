@@ -63,6 +63,7 @@
                    if (Convert.ToInt32(asset.SeriesNumber.Substring(1)) != assetDictionary[asset.AssetName])
                    {
                         found = false;
+                        break;
                    }
                 }
                 if (found)
