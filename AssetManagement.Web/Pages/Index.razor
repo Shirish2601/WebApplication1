@@ -5,20 +5,41 @@
 <div>
     @if (Machines != null)
     {
+        <h3>Machine List</h3>
         @for (var i = 0; i < Machines.Count; i++) 
         {
             int currentIndex = i;
-            <div class="machine-field" @onclick="@((e) => ButtonClickHandler(currentIndex))">
-                <span> ▶ @Machines[currentIndex].MachineName </span>
-            </div>
-            <div class="@((Dictionary[Machines[currentIndex]?.MachineName] == 0) ? "hidden" : "")">
-                <div>
-                    @foreach (var asset in Machines[currentIndex].Assets)
-                    {
-                        <p>@asset.AssetName @asset.SeriesNumber</p>
-                    }
+            <div class="machine-display">
+                <div class="machine-field" @onclick="@((e) => ButtonClickHandler(currentIndex))">
+                    <span>@((CheckIfButtonIsClicked[Machines[currentIndex]?.MachineName] == false) ? "➡️" : "⬇️") @Machines[currentIndex].MachineName </span>
                 </div>
+                @if (CheckIfButtonIsClicked[Machines[currentIndex]?.MachineName] == true)
+                {
+                    <div class="assets">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Asset Name</th>
+                                    <th>Series Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var asset in Machines[currentIndex].Assets)
+                                {
+                                    <tr>
+                                        <td>@asset.AssetName</td>
+                                        <td>@asset.SeriesNumber</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
             </div>
         }
+    }
+    else
+    {
+        <h3>Machine List is Empty</h3>
     }
 </div>

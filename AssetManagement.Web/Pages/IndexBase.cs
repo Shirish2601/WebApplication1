@@ -9,26 +9,26 @@ namespace AssetManagement.Web.Pages
         [Inject]
         public IMachineService MachineService { get; set; }
         public List<Machine> Machines { get; set; } = new();
-        public Dictionary<string, int> Dictionary { get; set; } = new();
+        public Dictionary<string, bool> CheckIfButtonIsClicked { get; set; } = new();
 
         protected override async Task OnInitializedAsync()
         {
             Machines = await MachineService.GetMachines();
             foreach (var machine in Machines)
             {
-                Dictionary.Add(machine.MachineName, 0);
+                CheckIfButtonIsClicked.Add(machine.MachineName, false);
             }
         }
 
         protected void ButtonClickHandler(int currentIndex)
         {
-            if (Dictionary[Machines[currentIndex].MachineName] == 0)
+            if (CheckIfButtonIsClicked[Machines[currentIndex].MachineName] == false)
             {
-                Dictionary[Machines[currentIndex].MachineName] = 1;
+                CheckIfButtonIsClicked[Machines[currentIndex].MachineName] = true;
             }
             else
             {
-                Dictionary[Machines[currentIndex].MachineName] = 0;
+                CheckIfButtonIsClicked[Machines[currentIndex].MachineName] = false;
             }
         }
     }
