@@ -6,7 +6,7 @@
 <div class="query">
     <h5>Get the Machines by Asset Names</h5>
     <label for="assetname">Asset Name </label>
-    <input @bind="AssetName" id="assetname" type="text" placeholder="Enter the Asset Name" />
+    <input id="assetname" type="text" placeholder="Enter the Asset Name" @bind="AssetName" />
     <button type="submit" @onclick="GetMachinesByAssetButtonHandler">Submit</button>
     @if (MachineNames != null)
     {

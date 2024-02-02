@@ -1,7 +1,6 @@
 ﻿table, th, td {
     border: 1px solid;
 }
-
 th, td {
     padding: 10px;
     text-align: left;
@@ -12,9 +11,6 @@ th, td {
     background-color: #efefef;
     margin-bottom: 10px;
     cursor: pointer;
-}
-.hidden {
-    display: none;
 }
 .assets {
     margin-left: 40px;
