@@ -9,7 +9,6 @@ namespace AssetManagement.Api.Models
         {
             List<MachineDto> machines = JsonConvert.DeserializeObject<List<MachineDto>>(File.ReadAllText(path));
             List<string> existingMachineNames = new();
-            List<Machine> Machines = new();
 
             foreach (var item in machines)
             {

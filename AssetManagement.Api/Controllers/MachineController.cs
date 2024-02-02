@@ -49,13 +49,13 @@ namespace AssetManagement.Api.Controllers
         }
 
         [HttpGet("{assetName}/machine")]
-        public ActionResult<IEnumerable<string>> GetMachines(string? assetName)
+        public ActionResult<IEnumerable<string>> GetMachinesByAssetName(string? assetName)
         {
             try
             {
                 if (assetName != null)
                 {
-                    return _machineRepository.GetMachines(assetName);
+                    return _machineRepository.GetMachinesByAssetName(assetName);
                 }
                 return BadRequest($"Please Enter Valid Machine Name");
             }

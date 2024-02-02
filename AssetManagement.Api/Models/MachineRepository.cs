@@ -8,8 +8,8 @@ namespace AssetManagement.Api.Models
         public DataReader DataReader;
         public MachineRepository()
         {
-            DataReader = new FileReader();
-            DataReader.Read(@"C:\Users\hadpa\Desktop\C#\WebApplication1\AssetManagement.Api\Models\Matrix.txt");
+            DataReader = new JsonReader();
+            DataReader.Read(@"C:\Users\Hadp_shi\Desktop\Shirish\New folder\WebApplication1\AssetManagement.Api\Models\Matrix.json");
         }
 
         public List<Asset> GetAsset(string? machineName)
@@ -22,7 +22,7 @@ namespace AssetManagement.Api.Models
             return DataReader.Machines;
         }
 
-        public List<string> GetMachines(string? assetName)
+        public List<string> GetMachinesByAssetName(string? assetName)
         {
             return DataReader.Machines.Where(machine => machine.Assets.Any(asset => asset.AssetName?.ToLower() == assetName?.ToLower())).Select(machine => machine.MachineName).ToList();
         }
