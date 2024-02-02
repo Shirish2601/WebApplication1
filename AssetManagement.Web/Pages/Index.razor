@@ -3,30 +3,22 @@
 <PageTitle>Index</PageTitle>
 
 <div>
-    <table>
-        @if (Machines != null)
+    @if (Machines != null)
+    {
+        @for (var i = 0; i < Machines.Count; i++) 
         {
-            <thead>
-                <tr>
-                    <th>Machine Name</th>
-                    <th>Asset Name</th>
-                    <th @onclick="@SortHandler">Series Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var machine in Machines)
-                {
-                    var assets = machine.Assets;
-                    foreach (var asset in assets)
+            int currentIndex = i;
+            <div class="machine-field" @onclick="@((e) => ButtonClickHandler(currentIndex))">
+                <span> ▶ @Machines[currentIndex].MachineName </span>
+            </div>
+            <div class="@((Dictionary[Machines[currentIndex]?.MachineName] == 0) ? "hidden" : "")">
+                <div>
+                    @foreach (var asset in Machines[currentIndex].Assets)
                     {
-                        <tr>
-                            <td>@machine.MachineName</td>
-                            <td>@asset.AssetName</td>
-                            <td>@asset.SeriesNumber</td>
-                        </tr>
+                        <p>@asset.AssetName @asset.SeriesNumber</p>
                     }
-                }
-            </tbody>
+                </div>
+            </div>
         }
-    </table>
+    }
 </div>

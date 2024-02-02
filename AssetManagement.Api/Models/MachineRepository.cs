@@ -8,8 +8,8 @@ namespace AssetManagement.Api.Models
         public DataReader DataReader;
         public MachineRepository()
         {
-            DataReader = new JsonReader();
-            DataReader.Read(@"C:\Users\Hadp_shi\Desktop\Shirish\New folder\WebApplication1\AssetManagement.Api\Models\Matrix.json");
+            DataReader = new FileReader();
+            DataReader.Read(@"C:\Users\Hadp_shi\Desktop\Shirish\New folder\WebApplication1\AssetManagement.Api\Models\Matrix.txt");
         }
 
         public List<Asset> GetAsset(string? machineName)

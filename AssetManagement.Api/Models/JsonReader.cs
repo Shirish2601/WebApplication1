@@ -41,9 +41,9 @@ namespace AssetManagement.Api.Models
         }
         public class MachineDto
         {
-            public string machineName {get; set;}
-            public string assetName {get; set;}
-            public string seriesNumber {get; set;}
+            public string machineName {get; set;} = String.Empty;
+            public string assetName {get; set;} = String.Empty;
+            public string seriesNumber {get; set;} = String.Empty;
         }
     }
 }

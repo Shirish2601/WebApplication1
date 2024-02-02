@@ -6,3 +6,11 @@ th, td {
     padding: 15px;
     text-align: left;
 }
+.machine-field {
+    padding: 10px;
+    background-color: #efefef;
+    margin-bottom: 10px;
+}
+.hidden {
+    display: none;
+}
