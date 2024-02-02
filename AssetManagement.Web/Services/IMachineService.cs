@@ -6,5 +6,6 @@ namespace AssetManagement.Web.Services
     {
         Task<Asset> GetAssets(string? machineName);
         Task<List<Machine>> GetMachines();
+        Task<IEnumerable<string>> GetMachinesByAssetName(string? assetName);
     }
 }
