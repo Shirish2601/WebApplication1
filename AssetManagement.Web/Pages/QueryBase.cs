@@ -1,5 +1,6 @@
 ﻿using AssetManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace AssetManagement.Web.Pages
 {
@@ -15,6 +16,14 @@ namespace AssetManagement.Web.Pages
             {
                 MachineNames = (await MachineService.GetMachinesByAssetName(AssetName)).ToList();
                 StateHasChanged();
+            }
+        }
+
+        protected void KeyDownEventHandler(KeyboardEventArgs kb)
+        {
+            if (kb.Key == "Enter")
+            {
+                GetMachinesByAssetButtonHandler();
             }
         }
     }

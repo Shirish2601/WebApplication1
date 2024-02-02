@@ -5,32 +5,32 @@ namespace AssetManagement.Api.Models
 {
     public class MachineRepository : IMachineRepository
     {
-        public DataReader DataReader;
+        public IDataReader DataReader;
         public MachineRepository()
         {
-            DataReader = new FileReader();
-            DataReader.Read(@"C:\Users\Hadp_shi\Desktop\Shirish\New folder\WebApplication1\AssetManagement.Api\Models\Matrix.txt");
+            DataReader = new TextFileReader(@"C:\Users\Hadp_shi\Desktop\Shirish\New folder\WebApplication1\AssetManagement.Api\Models\Matrix.txt");
+            DataReader.Read();
         }
 
         public List<Asset> GetAsset(string? machineName)
         {
-            return DataReader.Machines.Where(machine => machine.MachineName?.ToLower() == machineName?.ToLower()).First().Assets;
+            return AppConstants.Machines.Where(machine => machine.MachineName?.ToLower() == machineName?.ToLower()).First().Assets;
         }
 
         public List<Machine> GetMachines()
         {
-            return DataReader.Machines;
+            return AppConstants.Machines;
         }
 
         public List<string> GetMachinesByAssetName(string? assetName)
         {
-            return DataReader.Machines.Where(machine => machine.Assets.Any(asset => asset.AssetName?.ToLower() == assetName?.ToLower())).Select(machine => machine.MachineName).ToList();
+            return AppConstants.Machines.Where(machine => machine.Assets.Any(asset => asset.AssetName?.ToLower() == assetName?.ToLower())).Select(machine => machine.MachineName).ToList();
         }
 
         public List<string> GetMachineThatUsesLatestAssets()
         {
             Dictionary<string, int> assetDictionary = new();
-            foreach (var machine in DataReader.Machines)
+            foreach (var machine in AppConstants.Machines)
             {
                 foreach (var asset in machine.Assets)
                 {
@@ -49,7 +49,7 @@ namespace AssetManagement.Api.Models
             }
 
             List<string> machineThatUsesLatestAssets = new();
-            foreach (var machine in DataReader.Machines)
+            foreach (var machine in AppConstants.Machines)
             {
                 bool found = true;
 

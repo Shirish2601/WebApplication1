@@ -3,11 +3,11 @@
 <h3>Query</h3>
 
 
-<div class="query">
+<div class="query">    
     <h5>Get the Machines by Asset Names</h5>
     <label for="assetname">Asset Name </label>
     <input id="assetname" type="text" placeholder="Enter the Asset Name" @bind="AssetName" />
-    <button type="submit" @onclick="GetMachinesByAssetButtonHandler">Submit</button>
+    <button @onclick="GetMachinesByAssetButtonHandler">Submit</button>
     @if (MachineNames != null)
     {
         @if (MachineNames.Count == 0)

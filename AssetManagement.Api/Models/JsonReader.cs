@@ -1,13 +1,20 @@
 ﻿using AssetManagement.Models;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace AssetManagement.Api.Models
 {
-    public class JsonReader : DataReader
+    public class JsonReader : FileReader
     {
-        public override void Read(string? path)
+        public JsonReader(string path) : base(path)
         {
-            List<MachineDto> machines = JsonConvert.DeserializeObject<List<MachineDto>>(File.ReadAllText(path));
+        }
+
+        public override void Read()
+        {
+            List<Machine> machineList = new();
+
+            List<MachineDto> machines = JsonConvert.DeserializeObject<List<MachineDto>>(File.ReadAllText(Path));
             List<string> existingMachineNames = new();
 
             foreach (var item in machines)
@@ -25,11 +32,11 @@ namespace AssetManagement.Api.Models
                         MachineName = item.machineName,
                         Assets = new() { Asset }
                     };
-                    Machines.Add(Machine);
+                    machineList.Add(Machine);
                 }
                 else
                 {
-                    var existingMachine = Machines.Find(machine => machine.MachineName == item.machineName);
+                    var existingMachine = machineList.Find(machine => machine.MachineName == item.machineName);
                     var Asset = new Asset
                     {
                         AssetName = item.assetName,
@@ -38,8 +45,9 @@ namespace AssetManagement.Api.Models
                     existingMachine.Assets.Add(Asset);
                 }
             }
+            AppConstants.Machines = machineList;
         }
-        public class MachineDto
+        private class MachineDto
         {
             public string machineName {get; set;} = String.Empty;
             public string assetName {get; set;} = String.Empty;
