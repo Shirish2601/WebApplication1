@@ -1,11 +1,12 @@
-﻿using AssetManagement.Models;
+﻿using AssetManagement.Api.Models;
+using AssetManagement.Models;
 
-namespace AssetManagement.Api.Models
+namespace AssetManagement.Api.Repository
 {
     public class MachineRepository : IMachineRepository
     {
         private readonly IDataReader _dataReader;
-        
+
         public MachineRepository(IDataReader dataReader)
         {
             _dataReader = dataReader;
@@ -34,7 +35,7 @@ namespace AssetManagement.Api.Models
             {
                 foreach (var asset in machine.Assets)
                 {
-                    if (asset.AssetName!= null && !assetDictionary.ContainsKey(asset.AssetName))
+                    if (asset.AssetName != null && !assetDictionary.ContainsKey(asset.AssetName))
                     {
                         assetDictionary.Add(asset.AssetName, Convert.ToInt32(asset.SeriesNumber?.Substring(1)));
                     }
@@ -55,11 +56,11 @@ namespace AssetManagement.Api.Models
 
                 foreach (var asset in machine.Assets)
                 {
-                   if (asset.AssetName != null && Convert.ToInt32(asset.SeriesNumber?.Substring(1)) != assetDictionary[asset.AssetName])
-                   {
+                    if (asset.AssetName != null && Convert.ToInt32(asset.SeriesNumber?.Substring(1)) != assetDictionary[asset.AssetName])
+                    {
                         found = false;
                         break;
-                   }
+                    }
                 }
                 if (found && machine.MachineName != null)
                 {

@@ -4,7 +4,7 @@ namespace AssetManagement.Api.Models
 {
     public abstract class FileReader : IDataReader
     {
-        private string _path;
+        private readonly string _path;
         public string Path
         {
             get

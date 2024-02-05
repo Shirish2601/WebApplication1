@@ -1,4 +1,4 @@
-﻿using AssetManagement.Api.Models;
+﻿using AssetManagement.Api.Repository;
 using AssetManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 
