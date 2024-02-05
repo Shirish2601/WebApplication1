@@ -15,7 +15,8 @@ namespace AssetManagement.Api.Repository
 
         public List<Asset> GetAsset(string? machineName)
         {
-            return AppConstants.Machines.Where(machine => machine.MachineName?.ToLower() == machineName?.ToLower()).First().Assets;
+            return AppConstants.Machines.Where(machine => machine.MachineName?.ToLower() == machineName?.ToLower())
+                .First().Assets;
         }
 
         public List<Machine> GetMachines()
@@ -25,7 +26,9 @@ namespace AssetManagement.Api.Repository
 
         public List<string> GetMachinesByAssetName(string? assetName)
         {
-            return AppConstants.Machines.Where(machine => machine.Assets.Any(asset => asset.AssetName?.ToLower() == assetName?.ToLower())).Select(machine => machine.MachineName).ToList();
+            return AppConstants.Machines.Where(machine => machine.Assets.Any(asset => asset.AssetName?.ToLower() == assetName?.ToLower()))
+                .Select(machine => machine.MachineName)
+                .ToList();
         }
 
         public List<string> GetMachineThatUsesLatestAssets()
