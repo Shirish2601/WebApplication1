@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IMachineRepository, MachineRepository>();
-builder.Services.AddSingleton<IDataReader, TextFileReader>(option => new TextFileReader(@"C:\Users\hadpa\Desktop\C#\WebApplication1\AssetManagement.Api\Models\Matrix.txt"));
+builder.Services.AddSingleton<IDataReader>(option => new JsonFileReader(@"C:\Users\Hadp_shi\Desktop\Shirish\New folder\WebApplication1\AssetManagement.Api\Models\Matrix.json"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

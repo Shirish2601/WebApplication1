@@ -7,7 +7,7 @@ namespace AssetManagement.Api.Models
 
         public override void Read()
         {
-            List<Machine> machineList = new();
+            List<MachineDto> temporaryMachineList = new();
             if (Path != null)
             {
                 List<string> existingMachineNames = new();
@@ -18,34 +18,14 @@ namespace AssetManagement.Api.Models
                     {
                         string[]? contents = current?.Split(",");
                         var machineName = contents?[0].Trim();
-                        if (machineName is not null && !existingMachineNames.Contains(machineName))
-                        {
-                            var asset = new Asset
-                            {
-                                AssetName = contents?[1].Trim(),
-                                SeriesNumber = contents?[2].Trim()
-                            };
-                            var machine = new Machine
-                            {
-                                MachineName = machineName,
-                                Assets = new() { asset }
-                            };
-                            existingMachineNames.Add(machineName);
-                            machineList.Add(machine);
-                        }
-                        else
-                        {
-                            var asset = new Asset
-                            {
-                                AssetName = contents?[1].Trim(),
-                                SeriesNumber = contents?[2].Trim()
-                            };
-                            var currentMachine = machineList.Find(machine => machine.MachineName == machineName);
-                            currentMachine?.Assets.Add(asset);
-                        }
+                        var assetName = contents?[1].Trim();
+                        var seriesNumber = contents?[2].Trim();
+
+                        temporaryMachineList.Add(new MachineDto() {AssetName = assetName, MachineName = machineName, SeriesNumber = seriesNumber});
                     }
                 }
             }
+            List<Machine> machineList = temporaryMachineList.GroupBy(machine => machine.MachineName).ToList().Select(group => new Machine { MachineName = group.Key, Assets = group.Select(asset => new Asset {AssetName = asset.AssetName, SeriesNumber = asset.SeriesNumber}).ToList()}).ToList();
             AppConstants.Machines = machineList;
         }
     }
