@@ -5,9 +5,9 @@ namespace AssetManagement.Api.Repository
 {
     public class MachineRepository : IMachineRepository
     {
-        private readonly IDataReader _dataReader;
+        private readonly IFileReader _dataReader;
 
-        public MachineRepository(IDataReader dataReader)
+        public MachineRepository(IFileReader dataReader)
         {
             _dataReader = dataReader;
             _dataReader.Read();

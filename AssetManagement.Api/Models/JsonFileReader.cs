@@ -4,13 +4,15 @@ using System.IO;
 
 namespace AssetManagement.Api.Models
 {
-    public class JsonFileReader : FileReader
+    public class JsonFileReader : IFileReader
     {
-        public JsonFileReader(string path) : base(path)
+        public string Path;
+        public JsonFileReader(string path) 
         {
+            Path = path;
         }
 
-        public override void Read()
+        public void Read()
         {
             List<MachineDto>? temporaryMachineList = JsonConvert.DeserializeObject<List<MachineDto>>(File.ReadAllText(Path));
 

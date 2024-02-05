@@ -31,6 +31,7 @@ namespace AssetManagement.Api.Repository
 
         public List<string> GetMachineThatUsesLatestAssets()
         {
+            return new();
         }
     }
 }

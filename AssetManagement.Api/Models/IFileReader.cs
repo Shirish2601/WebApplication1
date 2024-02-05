@@ -2,7 +2,7 @@
 
 namespace AssetManagement.Api.Models
 {
-    public interface IDataReader
+    public interface IFileReader
     {
         void Read();
     }

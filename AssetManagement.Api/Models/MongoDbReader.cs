@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace AssetManagement.Api.Models
 {
-    public class MongoDbReader : IDataReader
+    public class MongoDbReader
     {
         private readonly IMongoCollection<Machine> _machineCollection;
         public MongoDbReader(IMachineDataStoreSetting machineDataStoreSetting, IMongoClient client)

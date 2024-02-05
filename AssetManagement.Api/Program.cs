@@ -14,7 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IMachineRepository, MachineRepository>();
-builder.Services.AddSingleton<IDataReader>(option => new TextFileReader(builder.Configuration.GetSection("FileSettings")["FilePath"]));
+builder.Services.AddSingleton<IFileReader>(option => new TextFileReader(builder.Configuration.GetSection("FileSettings")["FilePath"]));
 
 builder.Services.Configure<MachineDataStoreSetting>(builder.Configuration.GetSection(nameof(MachineDataStoreSetting)));
 builder.Services.AddSingleton<IMachineDataStoreSetting>(option => option.GetRequiredService<IOptions<MachineDataStoreSetting>>().Value);

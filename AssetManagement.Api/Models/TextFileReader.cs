@@ -1,11 +1,15 @@
 ﻿using AssetManagement.Models;
 namespace AssetManagement.Api.Models
 {
-    public class TextFileReader : FileReader
+    public class TextFileReader : IFileReader
     {
-        public TextFileReader(string path) : base(path) { }
+        public string Path { get;  }
+        public TextFileReader(string path)
+        {
+            Path = path;
+        }
 
-        public override void Read()
+        public void Read()
         {
             List<MachineDto> temporaryMachineList = new();
             if (Path != null)
