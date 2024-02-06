@@ -1,22 +1,65 @@
 ﻿using AssetManagement.Api.MongoDBModels;
-using AssetManagement.Api.Repository;
-using AssetManagement.Models;
 using MongoDB.Driver;
 
 namespace AssetManagement.Api.MongoDB
 {
-    public class MongoDbRepository : IMachineRepository
+    public class MongoDbRepository
     {
         private readonly IMongoCollection<Machine> _machineCollection;
         public MongoDbRepository(IMachineDataStoreSetting machineDataStoreSetting, IMongoClient client)
         {
             var db = client.GetDatabase(machineDataStoreSetting.DatabaseName);
             _machineCollection = db.GetCollection<Machine>(machineDataStoreSetting.CollectionName);
+
+            var countOfCollectionsInMachineCollection = _machineCollection.CountDocuments(machine => true);
+
+            if (countOfCollectionsInMachineCollection == 0)
+            {
+                List<Machine> machines = new()
+                {
+                    new Machine()
+                    {
+                        MachineName = "C300",
+                        Assets = new List<Asset>()
+                        {
+                            new Asset() { AssetName = "Cutter head", SeriesNumber = "S6" },
+                            new Asset() { AssetName = "Blade safety cover", SeriesNumber = "S10" },
+                            new Asset() { AssetName = "Deburring blades", SeriesNumber = "S6" }
+                        }
+                    },
+                    new Machine()
+                    {
+                        MachineName = "C40",
+                        Assets = new List<Asset>()
+                        {
+                            new Asset() { AssetName = "Cutter head", SeriesNumber = "S7" },
+                            new Asset() { AssetName = "Blade safety cover", SeriesNumber = "S11" },
+                            new Asset() { AssetName = "Shutter gripper", SeriesNumber = "S3" }
+                        }
+                    },
+                    new Machine()
+                    {
+                        MachineName = "C60",
+                        Assets = new List<Asset>()
+                        {
+                            new Asset() { AssetName = "Blade safety cover", SeriesNumber = "S11" },
+                            new Asset() { AssetName = "Cutter head", SeriesNumber = "S8" },
+                            new Asset() { AssetName = "Clamping fixture", SeriesNumber = "S2" }
+                        }
+                    }
+                };
+
+                foreach (var machine in machines)
+                {
+                    _machineCollection.InsertOne(machine);
+                }
+            }
+
         }
 
         public List<Asset> GetAsset(string? machineName)
         {
-            var filterQuery = Builders<Machine>.Filter.Eq(machine => machine.MachineName, machineName);
+            var filterQuery = Builders<Machine>.Filter.Eq(machine => machine.MachineName, machineName.ToUpper());
             return _machineCollection.Find(filterQuery).Project(machine => machine.Assets).FirstOrDefault();
         }
 
@@ -26,7 +69,7 @@ namespace AssetManagement.Api.MongoDB
         }
         public List<string> GetMachinesByAssetName(string? assetName)
         {
-            var filterQuery = Builders<Machine>.Filter.ElemMatch(machine => machine.Assets, asset => asset.AssetName == assetName);
+            var filterQuery = Builders<Machine>.Filter.ElemMatch(machine => machine.Assets, asset => asset.AssetName.ToLower() == assetName.ToLower());
             return _machineCollection.Find(filterQuery).Project(machine => machine.MachineName).ToList();
         }
 
@@ -40,7 +83,7 @@ namespace AssetManagement.Api.MongoDB
             {
                 foreach (var asset in machine.Assets)
                 {
-                    if (!assetDictionary.ContainsKey(machine.MachineName))
+                    if (!assetDictionary.ContainsKey(asset.AssetName))
                     {
                         assetDictionary.Add(asset.AssetName, Convert.ToInt32(asset.SeriesNumber.Substring(1)));
                     }

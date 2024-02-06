@@ -1,4 +1,5 @@
 using AssetManagement.Api.Models;
+using AssetManagement.Api.MongoDB;
 using AssetManagement.Api.MongoDBModels;
 using AssetManagement.Api.Repository;
 using AssetManagement.Api.Services;
@@ -17,6 +18,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IMachineRepository, MachineRepository>();
 builder.Services.AddScoped<IMachineService, MachineService>();
 
+builder.Services.AddScoped<MongoDbService, MongoDbService>();
+builder.Services.AddScoped<MongoDbRepository, MongoDbRepository>();
 builder.Services.AddSingleton<IFileReader>(option => new TextFileReader(builder.Configuration.GetSection("FileSettings")["FilePath"]));
 
 builder.Services.Configure<MachineDataStoreSetting>(builder.Configuration.GetSection(nameof(MachineDataStoreSetting)));

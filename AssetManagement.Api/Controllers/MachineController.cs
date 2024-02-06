@@ -1,6 +1,7 @@
-﻿using AssetManagement.Api.Repository;
+﻿using AssetManagement.Api.MongoDB;
+using AssetManagement.Api.MongoDBModels;
 using AssetManagement.Api.Services;
-using AssetManagement.Models;
+//using AssetManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssetManagement.Api.Controllers
@@ -9,11 +10,11 @@ namespace AssetManagement.Api.Controllers
     [ApiController]
     public class MachineController : ControllerBase
     {
-        private readonly IMachineService _machineService;
+        private readonly MongoDbService _mongoDbService;
 
-        public MachineController(IMachineService machineService)
+        public MachineController(MongoDbService mongoDbService)
         {
-            _machineService = machineService;
+            _mongoDbService = mongoDbService;
         }
 
         [HttpGet("{machineName}/assets")]
@@ -21,7 +22,7 @@ namespace AssetManagement.Api.Controllers
         {
             try 
             {
-                return Ok(_machineService.GetAsset(machineName));
+                return Ok(_mongoDbService.GetAsset(machineName));
             }
             catch (Exception)
             {
@@ -34,7 +35,7 @@ namespace AssetManagement.Api.Controllers
         {
             try
             {
-                return Ok(_machineService.GetMachines());
+                return Ok(_mongoDbService.GetMachines());
             }
             catch (Exception)
             {
@@ -47,7 +48,7 @@ namespace AssetManagement.Api.Controllers
         {
             try
             {
-                return _machineService.GetMachinesByAssetName(assetName);
+                return _mongoDbService.GetMachinesByAssetName(assetName);
             }
             catch (Exception)
             {
@@ -60,7 +61,7 @@ namespace AssetManagement.Api.Controllers
         {
             try
             {
-                return Ok(_machineService.GetMachineThatUsesLatestAssets());
+                return Ok(_mongoDbService.GetMachineThatUsesLatestAssets());
             }
             catch(Exception)
             {
