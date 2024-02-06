@@ -1,4 +1,4 @@
-﻿using AssetManagement.Api.MongoDB_Models;
+﻿using AssetManagement.Api.MongoDBModels;
 using AssetManagement.Api.Repository;
 using AssetManagement.Models;
 using MongoDB.Driver;
