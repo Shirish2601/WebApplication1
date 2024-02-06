@@ -67,7 +67,8 @@ namespace AssetManagement.Api.MongoDB
 
         public List<Machine> GetMachines()
         {
-            return _machineCollection.Find(machine => true).ToList();
+            var result = _machineCollection.Find(machine => true).Project(machine => new Machine { MachineName = machine.MachineName, Assets = machine.Assets }).ToList();
+            return result;
         }
         public List<string> GetMachinesByAssetName(string? assetName)
         {

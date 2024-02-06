@@ -1,11 +1,13 @@
-﻿using AssetManagement.Api.Temp;
+﻿using AssetManagement.Api.Repository;
+using AssetManagement.Api.Services;
+using AssetManagement.Models;
 
 namespace AssetManagement.Api.MongoDB
 {
-    public class MongoDbService
+    public class MongoDbService : IMachineService
     {
-        private readonly MongoDbRepository _mongoDbRepository;
-        public MongoDbService(MongoDbRepository mongoDbRepository)
+        private readonly IMachineRepository _mongoDbRepository;
+        public MongoDbService(IMachineRepository mongoDbRepository)
         {
             _mongoDbRepository = mongoDbRepository;
         }

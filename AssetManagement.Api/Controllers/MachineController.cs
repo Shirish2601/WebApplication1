@@ -1,7 +1,7 @@
 ﻿using AssetManagement.Api.MongoDB;
-using AssetManagement.Api.MongoDBModels;
-//using AssetManagement.Api.Services;
-//using AssetManagement.Models;
+using AssetManagement.Api.Services;
+using AssetManagement.Api.Services;
+using AssetManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssetManagement.Api.Controllers
@@ -10,10 +10,10 @@ namespace AssetManagement.Api.Controllers
     [ApiController]
     public class MachineController : ControllerBase
     {
-        private readonly MongoDbService _mongoDbService;
-        public MachineController(MongoDbService mongoDbService)
+        private readonly IMachineService _machineService;
+        public MachineController(IMachineService machineService)
         {
-            _mongoDbService = mongoDbService;
+            _machineService = machineService;
         }
 
         [HttpGet("{machineName}/assets")]
@@ -21,7 +21,7 @@ namespace AssetManagement.Api.Controllers
         {
             try 
             { 
-                var result = _mongoDbService.GetAsset(machineName);
+                var result = _machineService.GetAsset(machineName);
                 if (result == null || (result != null && result.Count == 0))
                 {
                     return NotFound($"Did not find Asset for Machine name {machineName}");
@@ -39,7 +39,7 @@ namespace AssetManagement.Api.Controllers
         {
             try
             {
-                return Ok(_mongoDbService.GetMachines());
+                return Ok(_machineService.GetMachines());
             }
             catch (Exception)
             {
@@ -52,7 +52,7 @@ namespace AssetManagement.Api.Controllers
         {
             try
             {
-                var result =  _mongoDbService.GetMachinesByAssetName(assetName);
+                var result =  _machineService.GetMachinesByAssetName(assetName);
                 return Ok(result);
             }
             catch (Exception)
@@ -66,7 +66,7 @@ namespace AssetManagement.Api.Controllers
         {
             try 
             {
-                return Ok(_mongoDbService.GetMachineThatUsesLatestAssets());
+                return Ok(_machineService.GetMachineThatUsesLatestAssets());
             }
             catch(Exception)
             {
