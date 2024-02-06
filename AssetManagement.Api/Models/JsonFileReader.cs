@@ -1,6 +1,5 @@
 ﻿using AssetManagement.Models;
 using Newtonsoft.Json;
-using System.IO;
 
 namespace AssetManagement.Api.Models
 {

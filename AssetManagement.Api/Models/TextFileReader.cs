@@ -14,7 +14,6 @@ namespace AssetManagement.Api.Models
             List<MachineDto> temporaryMachineList = new();
             if (Path != null)
             {
-                List<string> existingMachineNames = new();
                 using (StreamReader sr = new StreamReader(Path))
                 {
                     string? current = string.Empty;

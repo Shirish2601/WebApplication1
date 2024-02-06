@@ -1,4 +1,5 @@
 ﻿using AssetManagement.Api.Repository;
+using AssetManagement.Api.Services;
 using AssetManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,11 @@ namespace AssetManagement.Api.Controllers
     [ApiController]
     public class MachineController : ControllerBase
     {
-        private readonly IMachineRepository _machineRepository;
+        private readonly IMachineService _machineService;
 
-        public MachineController(IMachineRepository machineRepository)
+        public MachineController(IMachineService machineService)
         {
-            _machineRepository = machineRepository;
+            _machineService = machineService;
         }
 
         [HttpGet("{machineName}/assets")]
@@ -20,14 +21,7 @@ namespace AssetManagement.Api.Controllers
         {
             try 
             {
-                if (machineName != null)
-                {
-                    return Ok(_machineRepository.GetAsset(machineName));
-                }
-                else
-                {
-                    return BadRequest("Please Enter Machine Name");
-                }
+                return Ok(_machineService.GetAsset(machineName));
             }
             catch (Exception)
             {
@@ -40,7 +34,7 @@ namespace AssetManagement.Api.Controllers
         {
             try
             {
-                return Ok(_machineRepository.GetMachines());
+                return Ok(_machineService.GetMachines());
             }
             catch (Exception)
             {
@@ -53,11 +47,7 @@ namespace AssetManagement.Api.Controllers
         {
             try
             {
-                if (assetName != null)
-                {
-                    return _machineRepository.GetMachinesByAssetName(assetName);
-                }
-                return BadRequest($"Please Enter Valid Machine Name");
+                return _machineService.GetMachinesByAssetName(assetName);
             }
             catch (Exception)
             {
@@ -70,7 +60,7 @@ namespace AssetManagement.Api.Controllers
         {
             try
             {
-                return Ok(_machineRepository.GetMachineThatUsesLatestAssets());
+                return Ok(_machineService.GetMachineThatUsesLatestAssets());
             }
             catch(Exception)
             {

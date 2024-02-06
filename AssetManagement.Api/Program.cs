@@ -1,6 +1,7 @@
 using AssetManagement.Api.Models;
+using AssetManagement.Api.MongoDBModels;
 using AssetManagement.Api.Repository;
-using Microsoft.Extensions.DependencyInjection;
+using AssetManagement.Api.Services;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -14,6 +15,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IMachineRepository, MachineRepository>();
+builder.Services.AddScoped<IMachineService, MachineService>();
+
 builder.Services.AddSingleton<IFileReader>(option => new TextFileReader(builder.Configuration.GetSection("FileSettings")["FilePath"]));
 
 builder.Services.Configure<MachineDataStoreSetting>(builder.Configuration.GetSection(nameof(MachineDataStoreSetting)));
