@@ -3,7 +3,8 @@ namespace AssetManagement.Api.Models
 {
     public class TextFileReader : IFileReader
     {
-        public string Path { get;  }
+        public string Path { get; }
+
         public TextFileReader(string path)
         {
             Path = path;

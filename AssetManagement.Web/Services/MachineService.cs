@@ -21,9 +21,12 @@ namespace AssetManagement.Web.Services
             return await _httpClient.GetFromJsonAsync<List<Machine>>($"api/Machine");
         }
 
-        public async Task<IEnumerable<string>> GetMachinesByAssetName(string? assetName)
+        public async Task<List<string>> GetMachinesByAssetName(string? assetName)
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<string>>($"api/Machine/{assetName}/machine");
+            if (assetName != null)
+                return await _httpClient.GetFromJsonAsync<List<string>>($"api/Machine/{assetName}/machine");
+            else
+                return new();
         }
     }
 }

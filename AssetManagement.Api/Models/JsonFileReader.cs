@@ -5,11 +5,12 @@ namespace AssetManagement.Api.Models
 {
     public class JsonFileReader : IFileReader
     {
-        public string Path;
+        public string Path { get; }
         public JsonFileReader(string path) 
         {
             Path = path;
         }
+
 
         public void Read()
         {

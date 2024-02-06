@@ -1,7 +1,7 @@
-﻿using AssetManagement.Api.MongoDB;
-using AssetManagement.Api.MongoDBModels;
+﻿//using AssetManagement.Api.MongoDB;
+//using AssetManagement.Api.MongoDBModels;
 using AssetManagement.Api.Services;
-//using AssetManagement.Models;
+using AssetManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssetManagement.Api.Controllers
@@ -10,19 +10,24 @@ namespace AssetManagement.Api.Controllers
     [ApiController]
     public class MachineController : ControllerBase
     {
-        private readonly MongoDbService _mongoDbService;
+        private readonly IMachineService _machineService;
 
-        public MachineController(MongoDbService mongoDbService)
+        public MachineController(IMachineService machineService)
         {
-            _mongoDbService = mongoDbService;
+            _machineService = machineService;
         }
 
         [HttpGet("{machineName}/assets")]
-        public ActionResult<Asset> GetAsset(string? machineName)
+        public ActionResult<List<Asset>> GetAsset(string? machineName)
         {
             try 
-            {
-                return Ok(_mongoDbService.GetAsset(machineName));
+            { 
+                var result = _machineService.GetAsset(machineName);
+                if (result == null || (result != null && result.Count == 0))
+                {
+                    return NotFound($"Did not find Asset for Machine name {machineName}");
+                }
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -35,7 +40,7 @@ namespace AssetManagement.Api.Controllers
         {
             try
             {
-                return Ok(_mongoDbService.GetMachines());
+                return Ok(_machineService.GetMachines());
             }
             catch (Exception)
             {
@@ -44,11 +49,12 @@ namespace AssetManagement.Api.Controllers
         }
 
         [HttpGet("{assetName}/machine")]
-        public ActionResult<IEnumerable<string>> GetMachinesByAssetName(string? assetName)
+        public ActionResult<List<string>> GetMachinesByAssetName(string? assetName)
         {
             try
             {
-                return _mongoDbService.GetMachinesByAssetName(assetName);
+                var result =  _machineService.GetMachinesByAssetName(assetName);
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -59,9 +65,9 @@ namespace AssetManagement.Api.Controllers
         [HttpGet("latest-asset")]
         public ActionResult<IEnumerable<string>> GetMachinesThatUsesLatestAssets()
         {
-            try
+            try 
             {
-                return Ok(_mongoDbService.GetMachineThatUsesLatestAssets());
+                return Ok(_machineService.GetMachineThatUsesLatestAssets());
             }
             catch(Exception)
             {
