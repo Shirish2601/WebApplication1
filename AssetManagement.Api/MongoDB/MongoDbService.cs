@@ -1,4 +1,4 @@
-﻿using AssetManagement.Api.MongoDBModels;
+﻿using AssetManagement.Api.Temp;
 
 namespace AssetManagement.Api.MongoDB
 {

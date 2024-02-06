@@ -1,9 +1,11 @@
-﻿using AssetManagement.Api.MongoDBModels;
+﻿using AssetManagement.Models;
+using AssetManagement.Api.Repository;
 using MongoDB.Driver;
+using AssetManagement.Api.MongoDBModels;
 
 namespace AssetManagement.Api.MongoDB
 {
-    public class MongoDbRepository
+    public class MongoDbRepository : IMachineRepository
     {
         private readonly IMongoCollection<Machine> _machineCollection;
         public MongoDbRepository(IMachineDataStoreSetting machineDataStoreSetting, IMongoClient client)

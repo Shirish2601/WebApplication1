@@ -1,4 +1,4 @@
-﻿namespace AssetManagement.Api.MongoDBModels
+﻿namespace AssetManagement.Api.Temp
 {
     public class Asset
     {

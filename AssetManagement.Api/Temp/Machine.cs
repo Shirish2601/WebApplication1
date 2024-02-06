@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace AssetManagement.Api.MongoDBModels
+namespace AssetManagement.Api.Temp
 {
     public class Machine
     {
