@@ -50,8 +50,10 @@ namespace AssetManagement.Api.Repository
                     }
                 });
             });
-            var result = AppConstants.Machines.FindAll(m => m.Assets.All(a => assetDictionary.ContainsKey(a.AssetName) && assetDictionary[a.AssetName] == int.Parse(a.SeriesNumber.Substring(1)))).Select(m => m.MachineName).ToList();
-            return result;
+            var machinesThatUsesLatestAssets = AppConstants.Machines.FindAll(m => m.Assets.All(a => assetDictionary.ContainsKey(a.AssetName) && assetDictionary[a.AssetName] == int.Parse(a.SeriesNumber.Substring(1))))
+                .Select(m => m.MachineName)
+                .ToList();
+            return machinesThatUsesLatestAssets;
         }
     }
 }

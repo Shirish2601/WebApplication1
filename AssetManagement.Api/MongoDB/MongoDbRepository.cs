@@ -1,11 +1,12 @@
-﻿using AssetManagement.Models;
+﻿//using AssetManagement.Models;
 using AssetManagement.Api.Repository;
 using MongoDB.Driver;
 using AssetManagement.Api.MongoDBModels;
+using AssetManagement.Api.Temp;
 
 namespace AssetManagement.Api.MongoDB
 {
-    public class MongoDbRepository : IMachineRepository
+    public class MongoDbRepository
     {
         private readonly IMongoCollection<Machine> _machineCollection;
         public MongoDbRepository(IMachineDataStoreSetting machineDataStoreSetting, IMongoClient client)
@@ -67,7 +68,7 @@ namespace AssetManagement.Api.MongoDB
 
         public List<Machine> GetMachines()
         {
-            var result = _machineCollection.Find(machine => true).Project(machine => new Machine { MachineName = machine.MachineName, Assets = machine.Assets }).ToList();
+            var result = _machineCollection.Find(machine => true)./*Project(machine => new Machine { MachineName = machine.MachineName, Assets = machine.Assets }).*/ToList();
             return result;
         }
         public List<string> GetMachinesByAssetName(string? assetName)
