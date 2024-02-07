@@ -8,6 +8,7 @@ namespace AssetManagement.Web.Pages
         [Inject]
         public IMachineService MachineService { get; set; }
         public string? AssetName { get; set; }
+        public string? DisplayAssetName { get; set; }
         public List<string>? MachineNames { get; set; }
         protected async void GetMachinesByAssetButtonHandler()
         {
@@ -18,6 +19,7 @@ namespace AssetManagement.Web.Pages
                     AssetName = AssetName.Trim();
                 }
                 MachineNames = (await MachineService.GetMachinesByAssetName(AssetName)).ToList();
+                DisplayAssetName = AssetName;
             }
             catch (Exception)
             {
