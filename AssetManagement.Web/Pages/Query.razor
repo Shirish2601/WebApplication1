@@ -4,7 +4,7 @@
 
 
 <div class="query">    
-    <h5>Get the Machines by Asset Names</h5>
+    <h5>Get the Machines by Asset name</h5>
     <label for="assetname">Asset Name </label>
     <input id="assetname" type="text" placeholder="Enter the Asset Name" @bind="AssetName" />
     <button @onclick="GetMachinesByAssetButtonHandler">Submit</button>
@@ -12,24 +12,37 @@
     {
         @if (MachineNames.Count == 0)
         {
-            <div>
+            <div class="result">
                 Did not find any Machine with @AssetName Asset
             </div>
         }
         else
         {
-            <div>
+            <div class="result">
                 Machines that are using the @AssetName Asset
-                @foreach (var machinename in MachineNames)
-                {
-                    <p>@machinename</p>
-                }
+                <ul>
+                    @foreach (var machinename in MachineNames)
+                    {
+                        <li>@machinename</li>
+                    }
+                </ul>
             </div>
         }
     }
 </div>
 
+@*<div class="query">    
+    <h5>Get the Assets by Machine name</h5>
+    <label for="machineName">Machine Name</label>
+    <input id="machineName" type="text" placeholder="Enter the Machine name" @bind="MachineName" />
+    <button @onclick="GetAssetsByM">Submit</button>
+
+</div>*@
+
 <style>
+    .result {
+        margin-top: 5px;
+    }
     .query {
         margin-top: 20px;
     }

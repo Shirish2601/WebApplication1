@@ -12,9 +12,19 @@ namespace AssetManagement.Web.Pages
         public List<string>? MachineNames { get; set; }
         protected async void GetMachinesByAssetButtonHandler()
         {
-            if (!string.IsNullOrEmpty(AssetName))
+            try
             {
-                MachineNames = (await MachineService.GetMachinesByAssetName(AssetName)).ToList();
+                if (!string.IsNullOrEmpty(AssetName))
+                {
+                    MachineNames = (await MachineService.GetMachinesByAssetName(AssetName)).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                MachineNames = new();
+            }
+            finally
+            {
                 StateHasChanged();
             }
         }
