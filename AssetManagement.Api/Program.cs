@@ -15,11 +15,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddScoped<IMachineRepository, MongoDbRepository>();
-//builder.Services.AddScoped<IMachineService, MongoDbService>();
+builder.Services.AddScoped<IMachineRepository, MongoDbRepository>();
+builder.Services.AddScoped<IMachineService, MongoDbService>();
 
-builder.Services.AddScoped<MongoDbService, MongoDbService>();
-builder.Services.AddScoped<MongoDbRepository, MongoDbRepository>();
+//builder.Services.AddScoped<MongoDbService, MongoDbService>();
+//builder.Services.AddScoped<MongoDbRepository, MongoDbRepository>();
 builder.Services.AddSingleton<IFileReader>(option => new TextFileReader(builder.Configuration.GetSection("FileSettings")["FilePath"]));
 
 builder.Services.Configure<MachineDataStoreSetting>(builder.Configuration.GetSection(nameof(MachineDataStoreSetting)));

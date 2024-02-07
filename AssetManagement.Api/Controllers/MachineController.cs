@@ -1,4 +1,5 @@
 ﻿using AssetManagement.Api.MongoDB;
+using AssetManagement.Api.Services;
 using AssetManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,8 +9,8 @@ namespace AssetManagement.Api.Controllers
     [ApiController]
     public class MachineController : ControllerBase
     {
-        private readonly MongoDbService _machineService;
-        public MachineController(MongoDbService machineService)
+        private readonly IMachineService _machineService;
+        public MachineController(IMachineService machineService)
         {
             _machineService = machineService;
         }

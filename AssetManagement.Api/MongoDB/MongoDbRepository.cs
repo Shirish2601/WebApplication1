@@ -6,7 +6,7 @@ using AssetManagement.Models;
 
 namespace AssetManagement.Api.MongoDB
 {
-    public class MongoDbRepository
+    public class MongoDbRepository : IMachineRepository
     {
         private readonly IMongoCollection<MachineModel> _machineCollection;
         public MongoDbRepository(IMachineDataStoreSetting machineDataStoreSetting, IMongoClient client)
