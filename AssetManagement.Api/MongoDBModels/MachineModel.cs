@@ -1,17 +1,16 @@
-﻿using MongoDB.Bson;
+﻿using AssetManagement.Models;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace AssetManagement.Api.Temp
+namespace AssetManagement.Api.MongoDBModels
 {
-    public class Machine
+    public class MachineModel
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-
         [BsonElement("machineName")]
         public string MachineName { get; set; }
-
         [BsonElement("assets")]
         public List<Asset> Assets { get; set; }
     }

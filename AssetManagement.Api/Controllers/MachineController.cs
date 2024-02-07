@@ -1,7 +1,5 @@
 ﻿using AssetManagement.Api.MongoDB;
-//using AssetManagement.Api.Services;
-using AssetManagement.Api.Temp;
-//using AssetManagement.Models;
+using AssetManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssetManagement.Api.Controllers

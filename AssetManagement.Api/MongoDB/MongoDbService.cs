@@ -1,7 +1,6 @@
 ﻿using AssetManagement.Api.Repository;
 using AssetManagement.Api.Services;
-//using AssetManagement.Models;
-using AssetManagement.Api.Temp;
+using AssetManagement.Models;
 
 namespace AssetManagement.Api.MongoDB
 {
