@@ -6,7 +6,7 @@ namespace AssetManagement.Web.Pages
     {
         
         [CascadingParameter]
-        public IndexBase IndexBase { get; set; }
+        public Index Index { get; set; }
 
         [Parameter]
         public int CurrentIndex { get; set; }

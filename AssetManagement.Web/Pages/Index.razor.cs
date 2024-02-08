@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace AssetManagement.Web.Pages
 {
-    public class IndexBase : ComponentBase
+    public partial class Index : ComponentBase
     {
         [Inject]
         public IMachineService MachineService { get; set; }

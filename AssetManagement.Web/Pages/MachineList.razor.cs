@@ -5,6 +5,6 @@ namespace AssetManagement.Web.Pages
     public partial class MachineList : ComponentBase
     {
         [CascadingParameter]
-        public IndexBase IndexBase { get; set; }
+        public Index Index { get; set; }
     }
 }

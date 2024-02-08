@@ -1,14 +1,14 @@
-﻿@for (int i = 0; i < IndexBase.Machines.Count; i++)
+﻿@for (int i = 0; i < Index.Machines.Count; i++)
 {
     int currentIndex = i;
 
-    <tr style="display:flex; justify-content:space-around" class="arrow" @onclick="() => IndexBase.ButtonClickHandler(currentIndex)">
+    <tr style="display:flex; justify-content:space-around" class="arrow" @onclick="() => Index.ButtonClickHandler(currentIndex)">
         <td>
-            <span>@((IndexBase.CheckIfButtonIsClicked[IndexBase.Machines[currentIndex]?.MachineName] == false) ? "➡️" : "⬇️")</span>
+            <span>@((Index.CheckIfButtonIsClicked[Index.Machines[currentIndex]?.MachineName] == false) ? "➡️" : "⬇️")</span>
         </td>
-        <td>@IndexBase.Machines[currentIndex].MachineName</td>
+        <td>@Index.Machines[currentIndex].MachineName</td>
     </tr>
-    @if (IndexBase.CheckIfButtonIsClicked[IndexBase.Machines[currentIndex]?.MachineName])
+    @if (Index.CheckIfButtonIsClicked[Index.Machines[currentIndex]?.MachineName])
     {
         <DisplayAsset CurrentIndex="currentIndex" />
     }
