@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace AssetManagement.Web.Pages
 {
-    public class IndexBase : ComponentBase
+    public partial class Index : ComponentBase
     {
         [Inject]
         public IMachineService MachineService { get; set; }
@@ -20,16 +20,9 @@ namespace AssetManagement.Web.Pages
             }
         }
 
-        protected void ButtonClickHandler(int currentIndex)
+        public void ButtonClickHandler(int currentIndex)
         {
-            if (CheckIfButtonIsClicked[Machines[currentIndex].MachineName] == false)
-            {
-                CheckIfButtonIsClicked[Machines[currentIndex].MachineName] = true;
-            }
-            else
-            {
-                CheckIfButtonIsClicked[Machines[currentIndex].MachineName] = false;
-            }
+            CheckIfButtonIsClicked[Machines[currentIndex].MachineName] = !CheckIfButtonIsClicked[Machines[currentIndex].MachineName];
         }
     }
 }

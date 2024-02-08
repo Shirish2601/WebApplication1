@@ -1,0 +1,15 @@
+﻿@for (int i = 0; i < Index.Machines.Count; i++)
+{
+    int currentIndex = i;
+
+    <tr style="display:flex; justify-content:space-around" class="arrow" @onclick="() => Index.ButtonClickHandler(currentIndex)">
+        <td>
+            <span>@((Index.CheckIfButtonIsClicked[Index.Machines[currentIndex]?.MachineName] == false) ? "Show Assets ➡️" : "Hide Assets ⬇️")</span>
+        </td>
+        <td>@Index.Machines[currentIndex].MachineName</td>
+    </tr>
+    @if (Index.CheckIfButtonIsClicked[Index.Machines[currentIndex]?.MachineName])
+    {
+        <DisplayAsset CurrentIndex="currentIndex" />
+    }
+}

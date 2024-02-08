@@ -1,0 +1,21 @@
+<tr>
+    <td class="nested-table__data">
+        <table class="nested-table">
+            <thead>
+                <tr>
+                    <th>Asset Name</th>
+                    <th>Series Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var asset in Index.Machines[CurrentIndex].Assets)
+                {
+                    <tr>
+                        <td>@asset.AssetName</td>
+                        <td>@asset.SeriesNumber</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </td>
+</tr>
