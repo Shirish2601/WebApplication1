@@ -1,23 +1,25 @@
-﻿using AssetManagement.Api.MongoDBModels;
+﻿using AssetManagement.Api.Repository;
 using MongoDB.Driver;
+using AssetManagement.Api.MongoDBModels;
+using AssetManagement.Models;
 
 namespace AssetManagement.Api.MongoDB
 {
-    public class MongoDbRepository
+    public class MongoDbRepository : IMachineRepository
     {
-        private readonly IMongoCollection<Machine> _machineCollection;
+        private readonly IMongoCollection<MachineModel> _machineCollection;
         public MongoDbRepository(IMachineDataStoreSetting machineDataStoreSetting, IMongoClient client)
         {
             var db = client.GetDatabase(machineDataStoreSetting.DatabaseName);
-            _machineCollection = db.GetCollection<Machine>(machineDataStoreSetting.CollectionName);
+            _machineCollection = db.GetCollection<MachineModel>(machineDataStoreSetting.CollectionName);
 
-            var countOfCollectionsInMachineCollection = _machineCollection.CountDocuments(machine => true);
+            var countOfDocumentsInCollection = _machineCollection.CountDocuments(machine => true);
 
-            if (countOfCollectionsInMachineCollection == 0)
+            if (countOfDocumentsInCollection == 0)
             {
-                List<Machine> machines = new()
+                List<MachineModel> machines = new()
                 {
-                    new Machine()
+                    new MachineModel()
                     {
                         MachineName = "C300",
                         Assets = new List<Asset>()
@@ -27,7 +29,7 @@ namespace AssetManagement.Api.MongoDB
                             new Asset() { AssetName = "Deburring blades", SeriesNumber = "S6" }
                         }
                     },
-                    new Machine()
+                    new MachineModel()
                     {
                         MachineName = "C40",
                         Assets = new List<Asset>()
@@ -37,7 +39,7 @@ namespace AssetManagement.Api.MongoDB
                             new Asset() { AssetName = "Shutter gripper", SeriesNumber = "S3" }
                         }
                     },
-                    new Machine()
+                    new MachineModel()
                     {
                         MachineName = "C60",
                         Assets = new List<Asset>()
@@ -57,31 +59,32 @@ namespace AssetManagement.Api.MongoDB
 
         }
 
-        public List<Asset> GetAsset(string? machineName)
+        public List<Asset> GetAssetsByMachineName(string? machineName)
         {
-            var filterQuery = Builders<Machine>.Filter.Eq(machine => machine.MachineName, machineName.ToUpper());
+            var filterQuery = Builders<MachineModel>.Filter.Eq(machine => machine.MachineName, machineName.ToUpper());
             return _machineCollection.Find(filterQuery).Project(machine => machine.Assets).FirstOrDefault();
         }
 
         public List<Machine> GetMachines()
         {
-            return _machineCollection.Find(machine => true).ToList();
+            var result = _machineCollection.Find(machine => true).Project(machine => new Machine { MachineName = machine.MachineName, Assets = machine.Assets }).ToList();
+            return result;
         }
         public List<string> GetMachinesByAssetName(string? assetName)
         {
-            var filterQuery = Builders<Machine>.Filter.ElemMatch(machine => machine.Assets, asset => asset.AssetName.ToLower() == assetName.ToLower());
+            var filterQuery = Builders<MachineModel>.Filter.ElemMatch(machine => machine.Assets, asset => asset.AssetName.ToLower() == assetName.ToLower());
             return _machineCollection.Find(filterQuery).Project(machine => machine.MachineName).ToList();
         }
 
         public List<string> GetMachineThatUsesLatestAssets()
         {
-            List<Machine> machineList = _machineCollection.Find(machine => true).ToList();
+            List<MachineModel> machineList = _machineCollection.Find(machine => true).ToList();
 
             Dictionary<string, int> assetDictionary = new();
 
-            foreach (var machine in machineList)
+            machineList.ForEach(machine =>
             {
-                foreach (var asset in machine.Assets)
+                machine.Assets.ForEach(asset =>
                 {
                     if (!assetDictionary.ContainsKey(asset.AssetName))
                     {
@@ -94,29 +97,12 @@ namespace AssetManagement.Api.MongoDB
 
                         assetDictionary[asset.AssetName] = Math.Max(currentSeriesNumber, currentSeriesNumberFromDictionary);
                     }
-                }
-            }
+                });
+            });
 
-            List<string> machineThatUsesLatestAsset = new();
-
-            foreach (var machine in machineList)
-            {
-                bool found = true;
-                foreach (var asset in machine.Assets)
-                {
-                    var currentAssetSeriesNumber = Convert.ToInt32(asset.SeriesNumber.Substring(1));
-                    var maximumSeriesNumberOfCurrentAsset = assetDictionary[asset.AssetName];
-
-                    if (currentAssetSeriesNumber != maximumSeriesNumberOfCurrentAsset)
-                    {
-                        found = false;
-                    }
-                }
-                if (found)
-                {
-                    machineThatUsesLatestAsset.Add(machine.MachineName);
-                }
-            }
+            List<string> machineThatUsesLatestAsset = machineList.FindAll(machine => machine.Assets.All(asset => assetDictionary.ContainsKey(asset.AssetName) && assetDictionary[asset.AssetName] == int.Parse(asset.SeriesNumber.Substring(1))))
+                .Select(machine => machine.MachineName)
+                .ToList();
             return machineThatUsesLatestAsset;
         }
     }

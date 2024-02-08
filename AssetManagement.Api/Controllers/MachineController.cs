@@ -1,5 +1,4 @@
-﻿//using AssetManagement.Api.MongoDB;
-//using AssetManagement.Api.MongoDBModels;
+﻿using AssetManagement.Api.MongoDB;
 using AssetManagement.Api.Services;
 using AssetManagement.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -11,21 +10,20 @@ namespace AssetManagement.Api.Controllers
     public class MachineController : ControllerBase
     {
         private readonly IMachineService _machineService;
-
         public MachineController(IMachineService machineService)
         {
             _machineService = machineService;
         }
 
         [HttpGet("{machineName}/assets")]
-        public ActionResult<List<Asset>> GetAsset(string? machineName)
+        public ActionResult<List<Asset>> GetAssetsByMachineName(string? machineName)
         {
             try 
             { 
-                var result = _machineService.GetAsset(machineName);
+                var result = _machineService.GetAssetsByMachineName(machineName);
                 if (result == null || (result != null && result.Count == 0))
                 {
-                    return NotFound($"Did not find Asset for Machine name {machineName}");
+                    return NotFound($"Did not find any Asset for Machine named {machineName}");
                 }
                 return Ok(result);
             }
@@ -54,6 +52,10 @@ namespace AssetManagement.Api.Controllers
             try
             {
                 var result =  _machineService.GetMachinesByAssetName(assetName);
+                if (result == null || (result != null &&  result.Count == 0))
+                {
+                    return NotFound($"Did not find any Machine with the Asset named {assetName}");
+                }
                 return Ok(result);
             }
             catch (Exception)

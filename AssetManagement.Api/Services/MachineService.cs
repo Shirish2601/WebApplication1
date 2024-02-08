@@ -12,13 +12,13 @@ namespace AssetManagement.Api.Services
             _machineRepository = machineRepository;
             
         }
-        public List<Asset> GetAsset(string? machineName)
+        public List<Asset> GetAssetsByMachineName(string? machineName)
         {
             if (machineName == null)
             {
                 throw new ArgumentNullException(nameof(machineName));
             }
-            return _machineRepository.GetAsset(machineName);
+            return _machineRepository.GetAssetsByMachineName(machineName);
         }
 
         public List<Machine> GetMachines()

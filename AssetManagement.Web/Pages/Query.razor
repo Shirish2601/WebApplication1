@@ -1,40 +1,133 @@
 ﻿@page "/query"
-@inherits QueryBase
 <h3>Query</h3>
 
 
 <div class="query">    
-    <h5>Get the Machines by Asset Names</h5>
-    <label for="assetname">Asset Name </label>
+    <h5>Get the Machines by Asset name</h5>
+    <label for="assetname">Asset Name:</label>
     <input id="assetname" type="text" placeholder="Enter the Asset Name" @bind="AssetName" />
-    <button @onclick="GetMachinesByAssetButtonHandler">Submit</button>
+    <button class="btn btn-primary" @onclick="GetMachinesByAssetButtonHandler">Submit</button>
     @if (MachineNames != null)
     {
         @if (MachineNames.Count == 0)
         {
-            <div>
-                Did not find any Machine with @AssetName Asset
+            <div class="result">
+                @if (string.IsNullOrEmpty(AssetName))
+                {
+                    <p>Asset name can't be empty</p>
+                }
+                else
+                {
+                    <p>Did not find any Machine with @AssetName Asset</p>
+                }
             </div>
         }
         else
         {
-            <div>
-                Machines that are using the @AssetName Asset
-                @foreach (var machinename in MachineNames)
-                {
-                    <p>@machinename</p>
-                }
+            <div class="result">
+                Machines that are using the @DisplayAssetName Asset
+                <ul>
+                    @foreach (var machinename in MachineNames)
+                    {
+                        <li>@machinename</li>
+                    }
+                </ul>
             </div>
         }
     }
 </div>
 
+<div class="query">    
+    <h5>Get the Assets by Machine name</h5>
+    <label for="machineName">Machine Name:</label>
+    <input id="machineName" type="text" placeholder="Enter the Machine name" @bind="MachineName" />
+    <button class="btn btn-primary" @onclick="GetAssetsByMachineNameButtonHandler">Submit</button>
+    @if (Assets != null)
+    {
+        if (Assets.Count == 0)
+        {
+            <div class="result">
+                @if (string.IsNullOrEmpty(MachineName))
+                {
+                    <div>Machine name can't be empty</div>
+                }
+                else
+                {
+                    <div>Machine @MachineName doesn't exist</div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="result">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Asset Name</th>
+                            <th>Series Number</th>
+                        </tr>
+                    </thead>
+                @foreach (var asset in Assets)
+                {
+                    <tbody>
+                        <tr>
+                            <td>@asset.AssetName</td>
+                            <td>@asset.SeriesNumber</td>
+                        </tr>
+                    </tbody>
+                }
+                </table>
+            </div>
+        }
+    }
+</div>
+
+<div class="query">
+    <div class="d-flex flex-row align-items-center">
+        <h5>Get the Machine that uses latest Asset</h5>
+        <button class="btn btn-primary" @onclick="GetMachinesWithLatestAssetsButtonHandler">Get</button>
+    </div>
+    @if (MachineThatUsesLatestAsset != null)
+    {
+        <div class="result">
+            Machines that uses latest Asset:
+            @foreach (var machine in MachineThatUsesLatestAsset)
+            {
+                <li>@machine</li>
+            }
+        </div>
+    }
+</div>
+
 <style>
+    .result {
+        margin-top: 5px;
+    }
     .query {
         margin-top: 20px;
     }
     button {
         align-items: center;
         background-color: #FFFFFF;
+    }
+
+    table, th, td {
+        border: 1px solid;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+        font-size: 15px;
+    }
+    input {
+        padding: 5px;
+    }
+    label {
+        background-color: #efefef;
+        padding: 5px;
+    }
+    .d-flex {
+        gap: 10px;
     }
 </style>

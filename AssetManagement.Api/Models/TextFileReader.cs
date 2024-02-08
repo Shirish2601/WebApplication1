@@ -32,6 +32,7 @@ namespace AssetManagement.Api.Models
             List<Machine> machineList = temporaryMachineList.GroupBy(machine => machine.MachineName)
                 .Select(group => new Machine { MachineName = group.Key, Assets = group.Select(asset => new Asset {AssetName = asset.AssetName, SeriesNumber = asset.SeriesNumber}).ToList()})
                 .ToList();
+
             AppConstants.Machines = machineList;
         }
     }

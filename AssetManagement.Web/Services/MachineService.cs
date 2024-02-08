@@ -11,9 +11,9 @@ namespace AssetManagement.Web.Services
             _httpClient = httpClient;
         }
 
-        public async Task<Asset> GetAssets(string? machineName)
+        public async Task<List<Asset>> GetAssets(string? machineName)
         {
-            return await _httpClient.GetFromJsonAsync<Asset>($"api/Machine/{machineName}/assets");
+            return await _httpClient.GetFromJsonAsync<List<Asset>>($"api/Machine/{machineName}/assets");
         }
 
         public async Task<List<Machine>> GetMachines()
@@ -27,6 +27,11 @@ namespace AssetManagement.Web.Services
                 return await _httpClient.GetFromJsonAsync<List<string>>($"api/Machine/{assetName}/machine");
             else
                 return new();
+        }
+
+        public async Task<List<string>> GetMachineThatUsesLatestAsset()
+        {
+            return await _httpClient.GetFromJsonAsync<List<string>>($"api/Machine/latest-asset");
         }
     }
 }

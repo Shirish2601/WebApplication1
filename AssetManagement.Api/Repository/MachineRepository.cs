@@ -5,15 +5,15 @@ namespace AssetManagement.Api.Repository
 {
     public class MachineRepository : IMachineRepository
     {
-        private readonly IFileReader _dataReader;
+        private readonly IFileReader _fileReader;
 
         public MachineRepository(IFileReader dataReader)
         {
-            _dataReader = dataReader;
-            _dataReader.Read();
+            _fileReader = dataReader;
+            _fileReader.Read();
         }
 
-        public List<Asset> GetAsset(string? machineName)
+        public List<Asset> GetAssetsByMachineName(string? machineName)
         {
             return AppConstants.Machines.Where(machine => machine.MachineName?.ToLower() == machineName?.ToLower())
                 .First().Assets;
@@ -34,43 +34,26 @@ namespace AssetManagement.Api.Repository
         public List<string> GetMachineThatUsesLatestAssets()
         {
             Dictionary<string, int> assetDictionary = new();
-            foreach (var machine in AppConstants.Machines)
-            {
-                foreach (var asset in machine.Assets)
+            AppConstants.Machines.ForEach(m => { 
+                m.Assets.ForEach(a =>
                 {
-                    if (asset.AssetName != null && !assetDictionary.ContainsKey(asset.AssetName))
+                    if (a.AssetName != null && !assetDictionary.ContainsKey(a.AssetName))
                     {
-                        assetDictionary.Add(asset.AssetName, Convert.ToInt32(asset.SeriesNumber?.Substring(1)));
+                        assetDictionary.Add(a.AssetName, Convert.ToInt32(a.SeriesNumber?.Substring(1)));
                     }
                     else
                     {
-                        int currentSeriesNumber = Convert.ToInt32(asset.SeriesNumber?.Substring(1));
-                        int currentDictionarySeriesNumber = assetDictionary[asset.AssetName];
+                        int currentSeriesNumber = Convert.ToInt32(a.SeriesNumber?.Substring(1));
+                        int seriesNumberInDictionary = assetDictionary[a.AssetName];
 
-                        assetDictionary[asset.AssetName] = Math.Max(currentSeriesNumber, currentDictionarySeriesNumber);
+                        assetDictionary[a.AssetName] = Math.Max(currentSeriesNumber, seriesNumberInDictionary);
                     }
-                }
-            }
-
-            List<string> machineThatUsesLatestAssets = new();
-            foreach (var machine in AppConstants.Machines)
-            {
-                bool found = true;
-
-                foreach (var asset in machine.Assets)
-                {
-                    if (asset.AssetName != null && Convert.ToInt32(asset.SeriesNumber?.Substring(1)) != assetDictionary[asset.AssetName])
-                    {
-                        found = false;
-                        break;
-                    }
-                }
-                if (found && machine.MachineName != null)
-                {
-                    machineThatUsesLatestAssets.Add(machine.MachineName);
-                }
-            }
-            return machineThatUsesLatestAssets;
+                });
+            });
+            var machinesThatUsesLatestAssets = AppConstants.Machines.FindAll(m => m.Assets.All(a => assetDictionary.ContainsKey(a.AssetName) && assetDictionary[a.AssetName] == int.Parse(a.SeriesNumber.Substring(1))))
+                .Select(m => m.MachineName)
+                .ToList();
+            return machinesThatUsesLatestAssets;
         }
     }
 }

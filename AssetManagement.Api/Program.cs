@@ -15,16 +15,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IMachineRepository, MachineRepository>();
-builder.Services.AddScoped<IMachineService, MachineService>();
+builder.Services.AddScoped<IMachineRepository, MongoDbRepository>();
+builder.Services.AddScoped<IMachineService, MongoDbService>();
 
 //builder.Services.AddScoped<MongoDbService, MongoDbService>();
 //builder.Services.AddScoped<MongoDbRepository, MongoDbRepository>();
 builder.Services.AddSingleton<IFileReader>(option => new TextFileReader(builder.Configuration.GetSection("FileSettings")["FilePath"]));
 
-//builder.Services.Configure<MachineDataStoreSetting>(builder.Configuration.GetSection(nameof(MachineDataStoreSetting)));
-//builder.Services.AddSingleton<IMachineDataStoreSetting>(option => option.GetRequiredService<IOptions<MachineDataStoreSetting>>().Value);
-//builder.Services.AddSingleton<IMongoClient>(option => new MongoClient(builder.Configuration.GetSection("MachineDataStoreSetting")["MongoConnectionString"]));
+builder.Services.Configure<MachineDataStoreSetting>(builder.Configuration.GetSection(nameof(MachineDataStoreSetting)));
+builder.Services.AddSingleton<IMachineDataStoreSetting>(option => option.GetRequiredService<IOptions<MachineDataStoreSetting>>().Value);
+builder.Services.AddSingleton<IMongoClient>(option => new MongoClient(builder.Configuration.GetSection("MachineDataStoreSetting")["MongoConnectionString"]));
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
