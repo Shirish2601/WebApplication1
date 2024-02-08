@@ -20,16 +20,9 @@ namespace AssetManagement.Web.Pages
             }
         }
 
-        protected void ButtonClickHandler(int currentIndex)
+        public void ButtonClickHandler(int currentIndex)
         {
-            if (!CheckIfButtonIsClicked[Machines[currentIndex].MachineName])
-            {
-                CheckIfButtonIsClicked[Machines[currentIndex].MachineName] = true;
-            }
-            else
-            {
-                CheckIfButtonIsClicked[Machines[currentIndex].MachineName] = false;
-            }
+            CheckIfButtonIsClicked[Machines[currentIndex].MachineName] = !CheckIfButtonIsClicked[Machines[currentIndex].MachineName];
         }
     }
 }

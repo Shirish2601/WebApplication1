@@ -2,7 +2,7 @@
 @inherits IndexBase
 <PageTitle>Index</PageTitle>
 
-<div>
+@*<div>
     @if (Machines != null)
     {
         <h3>Machine List</h3>
@@ -21,7 +21,7 @@
 
                         <tr style="display:flex; justify-content:space-around" class="arrow" @onclick="() => ButtonClickHandler(currentIndex)">
                             <td>
-                                🔽
+                                <span>@((CheckIfButtonIsClicked[Machines[currentIndex]?.MachineName] == false) ? "➡️" : "⬇️")</span>
                             </td>
                             <td>@Machines[currentIndex].MachineName</td>
                         </tr>
@@ -53,6 +53,15 @@
                 </tbody>
             </table>
         </div>
+    }
+</div>*@
+
+<div>
+    @if (Machines != null)
+    {
+        <CascadingValue Value="this">
+            <DisplayMachine />
+        </CascadingValue>
     }
 </div>
 

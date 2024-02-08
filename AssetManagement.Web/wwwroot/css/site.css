@@ -62,3 +62,45 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+
+
+tr {
+    border-bottom: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.machine-field {
+    padding: 10px;
+    background-color: #efefef;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.arrow {
+    cursor: pointer;
+    text-align: center;
+}
+
+.asset-header {
+    padding: 10px;
+    font-size: 15px;
+}
+
+.main-table {
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+.nested-table {
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
