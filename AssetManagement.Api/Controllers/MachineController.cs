@@ -16,11 +16,11 @@ namespace AssetManagement.Api.Controllers
         }
 
         [HttpGet("{machineName}/assets")]
-        public ActionResult<List<Asset>> GetAsset(string? machineName)
+        public ActionResult<List<Asset>> GetAssetsByMachineName(string? machineName)
         {
             try 
             { 
-                var result = _machineService.GetAsset(machineName);
+                var result = _machineService.GetAssetsByMachineName(machineName);
                 if (result == null || (result != null && result.Count == 0))
                 {
                     return NotFound($"Did not find any Asset for Machine named {machineName}");

@@ -12,13 +12,13 @@ namespace AssetManagement.Api.MongoDB
             _mongoDbRepository = mongoDbRepository;
         }
 
-        public List<Asset> GetAsset(string? machineName)
+        public List<Asset> GetAssetsByMachineName(string? machineName)
         {
             if (machineName == null)
             {
                 throw new ArgumentNullException(nameof(machineName));
             }
-            return _mongoDbRepository.GetAsset(machineName);
+            return _mongoDbRepository.GetAssetsByMachineName(machineName);
         }
 
         public List<Machine> GetMachines()

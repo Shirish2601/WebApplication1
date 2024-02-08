@@ -60,7 +60,7 @@ namespace AssetManagement.Api.MongoDB
 
         }
 
-        public List<Asset> GetAsset(string? machineName)
+        public List<Asset> GetAssetsByMachineName(string? machineName)
         {
             var filterQuery = Builders<MachineModel>.Filter.Eq(machine => machine.MachineName, machineName.ToUpper());
             return _machineCollection.Find(filterQuery).Project(machine => machine.Assets).FirstOrDefault();

@@ -13,7 +13,7 @@ namespace AssetManagement.Api.Repository
             _dataReader.Read();
         }
 
-        public List<Asset> GetAsset(string? machineName)
+        public List<Asset> GetAssetsByMachineName(string? machineName)
         {
             return AppConstants.Machines.Where(machine => machine.MachineName?.ToLower() == machineName?.ToLower())
                 .First().Assets;
