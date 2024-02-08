@@ -4,7 +4,7 @@
 
     <tr style="display:flex; justify-content:space-around" class="arrow" @onclick="() => Index.ButtonClickHandler(currentIndex)">
         <td>
-            <span>@((Index.CheckIfButtonIsClicked[Index.Machines[currentIndex]?.MachineName] == false) ? "➡️" : "⬇️")</span>
+            <span>@((Index.CheckIfButtonIsClicked[Index.Machines[currentIndex]?.MachineName] == false) ? "Show Assets ➡️" : "Hide Assets ⬇️")</span>
         </td>
         <td>@Index.Machines[currentIndex].MachineName</td>
     </tr>
