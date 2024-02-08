@@ -9,9 +9,9 @@
         <div class="machine-display">
             <table class="main-table">
                 <thead>
-                    <tr>
+                    <tr style="display:flex; justify-content:space-around">
                         <th></th>
-                        <th>Machine Name</th>
+                        <th >Machine Name</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -19,7 +19,7 @@
                     {
                         int currentIndex = i;
 
-                        <tr class="arrow" @onclick="() => ButtonClickHandler(currentIndex)">
+                        <tr style="display:flex; justify-content:space-around" class="arrow" @onclick="() => ButtonClickHandler(currentIndex)">
                             <td>
                                 🔽
                             </td>
@@ -28,7 +28,7 @@
                         @if (CheckIfButtonIsClicked[Machines[currentIndex]?.MachineName])
                         {
                             <tr>
-                                <td>
+                                <td class="nested-table__data">
                                     <table class="nested-table">
                                         <thead>
                                             <tr>

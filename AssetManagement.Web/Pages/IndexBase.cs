@@ -22,7 +22,7 @@ namespace AssetManagement.Web.Pages
 
         protected void ButtonClickHandler(int currentIndex)
         {
-            if (CheckIfButtonIsClicked[Machines[currentIndex].MachineName] == false)
+            if (!CheckIfButtonIsClicked[Machines[currentIndex].MachineName])
             {
                 CheckIfButtonIsClicked[Machines[currentIndex].MachineName] = true;
             }
