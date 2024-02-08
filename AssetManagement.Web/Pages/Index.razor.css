@@ -1,10 +1,12 @@
-﻿table, th, td {
-    border: 1px solid;
+﻿
+tr {
+    border-bottom: 1px solid #ccc;
+    width: 100px;
 }
 th, td {
     padding: 10px;
-    text-align: left;
     font-size: 15px;
+    text-align: center;
 }
 .machine-field {
     padding: 10px;
@@ -12,7 +14,19 @@ th, td {
     margin-bottom: 10px;
     cursor: pointer;
 }
-.assets {
-    margin-left: 40px;
-    margin-bottom: 10px;
+.arrow {
+    cursor: pointer;
+    text-align: center;
+}
+.asset-header {
+    padding: 10px;
+    font-size: 15px;
+}
+.main-table {
+    border: 1px solid #ccc;
+    width: 100%;
+}
+.nested-table {
+    border-bottom: 1px solid #ccc;
+    width: 100%;
 }

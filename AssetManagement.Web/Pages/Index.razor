@@ -6,6 +6,60 @@
     @if (Machines != null)
     {
         <h3>Machine List</h3>
+        <div class="machine-display">
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Machine Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Machines.Count; i++)
+                    {
+                        int currentIndex = i;
+
+                        <tr class="arrow" @onclick="() => ButtonClickHandler(currentIndex)">
+                            <td>
+                                🔽
+                            </td>
+                            <td>@Machines[currentIndex].MachineName</td>
+                        </tr>
+                        @if (CheckIfButtonIsClicked[Machines[currentIndex]?.MachineName])
+                        {
+                            <tr>
+                                <td>
+                                    <table class="nested-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Asset Name</th>
+                                                <th>Series Number</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var asset in Machines[currentIndex].Assets)
+                                            {
+                                                <tr>
+                                                    <td>@asset.AssetName</td>
+                                                    <td>@asset.SeriesNumber</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@*<div>
+    @if (Machines != null)
+    {
+        <h3>Machine List</h3>
         @for (int i = 0; i < Machines.Count; i++) 
         {
             int currentIndex = i;
@@ -42,4 +96,4 @@
     {
         <h3>Machine List is Empty</h3>
     }
-</div>
+</div>*@
