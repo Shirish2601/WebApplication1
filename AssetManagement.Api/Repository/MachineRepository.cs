@@ -5,12 +5,12 @@ namespace AssetManagement.Api.Repository
 {
     public class MachineRepository : IMachineRepository
     {
-        private readonly IFileReader _dataReader;
+        private readonly IFileReader _fileReader;
 
         public MachineRepository(IFileReader dataReader)
         {
-            _dataReader = dataReader;
-            _dataReader.Read();
+            _fileReader = dataReader;
+            _fileReader.Read();
         }
 
         public List<Asset> GetAssetsByMachineName(string? machineName)
@@ -44,9 +44,9 @@ namespace AssetManagement.Api.Repository
                     else
                     {
                         int currentSeriesNumber = Convert.ToInt32(a.SeriesNumber?.Substring(1));
-                        int currentDictionarySeriesNumber = assetDictionary[a.AssetName];
+                        int seriesNumberInDictionary = assetDictionary[a.AssetName];
 
-                        assetDictionary[a.AssetName] = Math.Max(currentSeriesNumber, currentDictionarySeriesNumber);
+                        assetDictionary[a.AssetName] = Math.Max(currentSeriesNumber, seriesNumberInDictionary);
                     }
                 });
             });

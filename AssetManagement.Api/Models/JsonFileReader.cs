@@ -11,7 +11,6 @@ namespace AssetManagement.Api.Models
             Path = path;
         }
 
-
         public void Read()
         {
             List<MachineDto>? temporaryMachineList = JsonConvert.DeserializeObject<List<MachineDto>>(File.ReadAllText(Path));

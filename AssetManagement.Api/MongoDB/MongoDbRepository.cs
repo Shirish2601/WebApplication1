@@ -1,5 +1,4 @@
-﻿//using AssetManagement.Models;
-using AssetManagement.Api.Repository;
+﻿using AssetManagement.Api.Repository;
 using MongoDB.Driver;
 using AssetManagement.Api.MongoDBModels;
 using AssetManagement.Models;
@@ -14,9 +13,9 @@ namespace AssetManagement.Api.MongoDB
             var db = client.GetDatabase(machineDataStoreSetting.DatabaseName);
             _machineCollection = db.GetCollection<MachineModel>(machineDataStoreSetting.CollectionName);
 
-            var countOfCollectionsInMachineCollection = _machineCollection.CountDocuments(machine => true);
+            var countOfDocumentsInCollection = _machineCollection.CountDocuments(machine => true);
 
-            if (countOfCollectionsInMachineCollection == 0)
+            if (countOfDocumentsInCollection == 0)
             {
                 List<MachineModel> machines = new()
                 {
@@ -83,9 +82,9 @@ namespace AssetManagement.Api.MongoDB
 
             Dictionary<string, int> assetDictionary = new();
 
-            foreach (var machine in machineList)
+            machineList.ForEach(machine =>
             {
-                foreach (var asset in machine.Assets)
+                machine.Assets.ForEach(asset =>
                 {
                     if (!assetDictionary.ContainsKey(asset.AssetName))
                     {
@@ -98,29 +97,12 @@ namespace AssetManagement.Api.MongoDB
 
                         assetDictionary[asset.AssetName] = Math.Max(currentSeriesNumber, currentSeriesNumberFromDictionary);
                     }
-                }
-            }
+                });
+            });
 
-            List<string> machineThatUsesLatestAsset = new();
-
-            foreach (var machine in machineList)
-            {
-                bool found = true;
-                foreach (var asset in machine.Assets)
-                {
-                    var currentAssetSeriesNumber = Convert.ToInt32(asset.SeriesNumber.Substring(1));
-                    var maximumSeriesNumberOfCurrentAsset = assetDictionary[asset.AssetName];
-
-                    if (currentAssetSeriesNumber != maximumSeriesNumberOfCurrentAsset)
-                    {
-                        found = false;
-                    }
-                }
-                if (found)
-                {
-                    machineThatUsesLatestAsset.Add(machine.MachineName);
-                }
-            }
+            List<string> machineThatUsesLatestAsset = machineList.FindAll(machine => machine.Assets.All(asset => assetDictionary.ContainsKey(asset.AssetName) && assetDictionary[asset.AssetName] == int.Parse(asset.SeriesNumber.Substring(1))))
+                .Select(machine => machine.MachineName)
+                .ToList();
             return machineThatUsesLatestAsset;
         }
     }
