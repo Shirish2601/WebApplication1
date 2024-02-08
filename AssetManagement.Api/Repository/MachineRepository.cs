@@ -7,9 +7,9 @@ namespace AssetManagement.Api.Repository
     {
         private readonly IFileReader _fileReader;
 
-        public MachineRepository(IFileReader dataReader)
+        public MachineRepository(IFileReader fileReader)
         {
-            _fileReader = dataReader;
+            _fileReader = fileReader;
             _fileReader.Read();
         }
 
@@ -26,7 +26,7 @@ namespace AssetManagement.Api.Repository
 
         public List<string> GetMachinesByAssetName(string? assetName)
         {
-            return AppConstants.Machines.Where(machine => machine.Assets.Any(asset => asset.AssetName?.ToLower() == assetName?.ToLower()))
+            return AppConstants.Machines.Where(machine => machine.Assets.Any(asset => asset.AssetName?.ToLower() == assetName?.Trim().ToLower()))
                 .Select(machine => machine.MachineName)
                 .ToList();
         }

@@ -20,6 +20,10 @@ namespace AssetManagement.Api.Controllers
         {
             try 
             { 
+                if (!string.IsNullOrEmpty(machineName))
+                {
+                    machineName = machineName.ToLower().Trim();
+                }
                 var result = _machineService.GetAssetsByMachineName(machineName);
                 if (result == null || (result != null && result.Count == 0))
                 {
@@ -51,6 +55,10 @@ namespace AssetManagement.Api.Controllers
         {
             try
             {
+                if (!string.IsNullOrEmpty(assetName))
+                {
+                    assetName = assetName.ToLower().Trim();
+                }
                 var result =  _machineService.GetMachinesByAssetName(assetName);
                 if (result == null || (result != null &&  result.Count == 0))
                 {
