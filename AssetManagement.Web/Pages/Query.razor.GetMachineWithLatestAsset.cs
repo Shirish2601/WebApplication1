@@ -2,16 +2,16 @@
 {
     public partial class Query
     {
-        public List<string>? MachineThatUsesLatestAsset { get; set; }
+        public List<string>? MachinesThatUsesLatestAsset { get; set; }
         public async void GetMachinesWithLatestAssetsButtonHandler()
         {
             try
             {
-                MachineThatUsesLatestAsset = await MachineService.GetMachineThatUsesLatestAsset();
+                MachinesThatUsesLatestAsset = await MachineService.GetMachineThatUsesLatestAsset();
             }
             catch (Exception)
             {
-                MachineThatUsesLatestAsset = null;
+                MachinesThatUsesLatestAsset = new();
             }
             finally
             {

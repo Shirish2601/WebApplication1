@@ -87,15 +87,26 @@
         <h5>Get the Machine that uses latest Asset</h5>
         <button class="btn btn-primary" @onclick="GetMachinesWithLatestAssetsButtonHandler">Get</button>
     </div>
-    @if (MachineThatUsesLatestAsset != null)
+    @if (MachinesThatUsesLatestAsset != null)
     {
-        <div class="result">
-            Machines that uses latest Asset:
-            @foreach (var machine in MachineThatUsesLatestAsset)
-            {
-                <li>@machine</li>
-            }
-        </div>
+        if (MachinesThatUsesLatestAsset.Count == 0)
+        {
+            <div class="result">
+                Did not find any machine that uses latest asset
+            </div>
+        }
+        else
+        {
+            <div class="result">
+                Machines that uses latest Asset:
+                <ul>
+                    @foreach (var machine in MachinesThatUsesLatestAsset)
+                    {
+                        <li>@machine</li>
+                    }
+                </ul>
+            </div>
+        }
     }
 </div>
 

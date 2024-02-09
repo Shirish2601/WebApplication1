@@ -15,6 +15,17 @@ namespace AssetManagement.Api.Controllers
             _machineService = machineService;
         }
 
+        /// <summary>
+        /// Gets the list of Assets by Machine name
+        /// </summary>
+        /// <param name="machineName">Name of the machine that you want to look assets for</param>
+        /// <response code="200">Information retrieved</response>
+        /// <response code="404">Machine name not found</response>
+        /// <response code="500">Internal Server Error</response>
+        /// <returns>List of Assets</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{machineName}/assets")]
         public ActionResult<List<Asset>> GetAssetsByMachineName(string? machineName)
         {
@@ -37,6 +48,14 @@ namespace AssetManagement.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the List of all Machines
+        /// </summary>
+        /// <response code="200">Information retrieved</response>
+        /// <response code="500">Internal Server Error</response>
+        /// <returns>List of Machines</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
         public ActionResult<List<Machine>> GetMachines()
         {
@@ -50,6 +69,17 @@ namespace AssetManagement.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the List of Machine names that are ussing specific Asset
+        /// </summary>
+        /// <param name="assetName">Asset name you want to look for</param>
+        /// <response code="200">Information retrieved</response>
+        /// <response code="404">Asset name does not exist</response>
+        /// <response code="500">Internal Server Error</response>
+        /// <returns>List of machines that uses specific Asset</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{assetName}/machine")]
         public ActionResult<List<string>> GetMachinesByAssetName(string? assetName)
         {
@@ -72,8 +102,16 @@ namespace AssetManagement.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the list of machine names that uses latest Assets
+        /// </summary>
+        /// <response code="200">Information retrieved</response>
+        /// <response code="500">Internal Server Error</response>
+        /// <returns>List of Machine names</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("latest-asset")]
-        public ActionResult<IEnumerable<string>> GetMachinesThatUsesLatestAssets()
+        public ActionResult<List<string>> GetMachinesThatUsesLatestAssets()
         {
             try 
             {

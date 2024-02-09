@@ -34,7 +34,7 @@ namespace AssetManagement.Api.Repository
         public List<string> GetMachineThatUsesLatestAssets()
         {
             Dictionary<string, int> assetDictionary = new();
-            AppConstants.Machines.ForEach(m => { 
+            AppConstants.Machines?.ForEach(m => { 
                 m.Assets.ForEach(a =>
                 {
                     if (a.AssetName != null && !assetDictionary.ContainsKey(a.AssetName))
@@ -50,7 +50,7 @@ namespace AssetManagement.Api.Repository
                     }
                 });
             });
-            var machinesThatUsesLatestAssets = AppConstants.Machines.FindAll(m => m.Assets.All(a => assetDictionary.ContainsKey(a.AssetName) && assetDictionary[a.AssetName] == int.Parse(a.SeriesNumber.Substring(1))))
+            var machinesThatUsesLatestAssets = AppConstants.Machines?.FindAll(m => m.Assets.All(a => assetDictionary.ContainsKey(a.AssetName) && assetDictionary[a.AssetName] == int.Parse(a.SeriesNumber.Substring(1))))
                 .Select(m => m.MachineName)
                 .ToList();
             return machinesThatUsesLatestAssets;

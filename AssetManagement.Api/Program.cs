@@ -5,6 +5,7 @@ using AssetManagement.Api.Repository;
 using AssetManagement.Api.Services;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,16 +16,23 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IMachineRepository, MongoDbRepository>();
-builder.Services.AddScoped<IMachineService, MongoDbService>();
+builder.Services.AddSingleton<IMachineRepository, MachineRepository>();
+builder.Services.AddScoped<IMachineService, MachineService>();
 
 //builder.Services.AddScoped<MongoDbService, MongoDbService>();
 //builder.Services.AddScoped<MongoDbRepository, MongoDbRepository>();
-builder.Services.AddSingleton<IFileReader>(option => new TextFileReader(builder.Configuration.GetSection("FileSettings")["FilePath"]));
+builder.Services.AddSingleton<IFileReader>(option => new JsonFileReader(builder.Configuration.GetSection("FileSettings")["FilePath"]));
 
 builder.Services.Configure<MachineDataStoreSetting>(builder.Configuration.GetSection(nameof(MachineDataStoreSetting)));
 builder.Services.AddSingleton<IMachineDataStoreSetting>(option => option.GetRequiredService<IOptions<MachineDataStoreSetting>>().Value);
 builder.Services.AddSingleton<IMongoClient>(option => new MongoClient(builder.Configuration.GetSection("MachineDataStoreSetting")["MongoConnectionString"]));
+
+builder.Services.AddSwaggerGen(option =>
+{
+    var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlCommentFilePath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+    option.IncludeXmlComments(xmlCommentFilePath);
+});
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.

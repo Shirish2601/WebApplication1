@@ -13,10 +13,17 @@ namespace AssetManagement.Web.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Machines = await MachineService.GetMachines();
-            foreach (var machine in Machines)
+            try
             {
-                CheckIfButtonIsClicked.Add(machine.MachineName, false);
+                Machines = await MachineService.GetMachines();
+                foreach (var machine in Machines)
+                {
+                    CheckIfButtonIsClicked.Add(machine.MachineName, false);
+                }
+            }
+            catch (Exception)
+            {
+                Machines = null;
             }
         }
 
