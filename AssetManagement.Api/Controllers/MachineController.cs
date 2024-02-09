@@ -1,5 +1,4 @@
-﻿using AssetManagement.Api.MongoDB;
-using AssetManagement.Api.Services;
+﻿using AssetManagement.Api.Services;
 using AssetManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,7 +46,7 @@ namespace AssetManagement.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
             }
         }
-
+       
         /// <summary>
         /// Gets the List of all Machines
         /// </summary>
@@ -68,6 +67,26 @@ namespace AssetManagement.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
             }
         }
+
+        //[HttpGet("filter")]
+        //public ActionResult<List<string>> GetMachineNamesByAssetName([FromQuery] string? assetName)
+        //{
+        //    try
+        //    {
+        //        if (!string.IsNullOrEmpty(assetName))
+        //        {
+        //            assetName = assetName.Trim().ToLower();
+        //            var result = _machineService.GetMachinesByAssetName(assetName);
+        //            return Ok(result);
+        //        }
+        //        return BadRequest();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(500, "Internal Server Error");
+        //    }
+            
+        //}
 
         /// <summary>
         /// Gets the List of Machine names that are ussing specific Asset

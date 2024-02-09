@@ -16,8 +16,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IMachineRepository, MachineRepository>();
-builder.Services.AddScoped<IMachineService, MachineService>();
+builder.Services.AddSingleton<IMachineRepository, MongoDbRepository>();
+builder.Services.AddScoped<IMachineService, MongoDbService>();
 
 //builder.Services.AddScoped<MongoDbService, MongoDbService>();
 //builder.Services.AddScoped<MongoDbRepository, MongoDbRepository>();
