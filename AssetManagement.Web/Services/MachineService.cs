@@ -24,7 +24,7 @@ namespace AssetManagement.Web.Services
         public async Task<List<string>> GetMachinesByAssetName(string? assetName)
         {
             if (assetName != null)
-                return await _httpClient.GetFromJsonAsync<List<string>>($"api/Machine/{assetName}/machine");
+                return await _httpClient.GetFromJsonAsync<List<string>>($"api/Machine/filter?assetName={assetName}");
             else
                 return new();
         }

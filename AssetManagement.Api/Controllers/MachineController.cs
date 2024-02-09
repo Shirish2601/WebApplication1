@@ -68,26 +68,6 @@ namespace AssetManagement.Api.Controllers
             }
         }
 
-        //[HttpGet("filter")]
-        //public ActionResult<List<string>> GetMachineNamesByAssetName([FromQuery] string? assetName)
-        //{
-        //    try
-        //    {
-        //        if (!string.IsNullOrEmpty(assetName))
-        //        {
-        //            assetName = assetName.Trim().ToLower();
-        //            var result = _machineService.GetMachinesByAssetName(assetName);
-        //            return Ok(result);
-        //        }
-        //        return BadRequest();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return StatusCode(500, "Internal Server Error");
-        //    }
-            
-        //}
-
         /// <summary>
         /// Gets the List of Machine names that are ussing specific Asset
         /// </summary>
@@ -95,31 +75,66 @@ namespace AssetManagement.Api.Controllers
         /// <response code="200">Information retrieved</response>
         /// <response code="404">Asset name does not exist</response>
         /// <response code="500">Internal Server Error</response>
-        /// <returns>List of machines that uses specific Asset</returns>
+        /// <returns>List of machines names that uses specific Asset</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpGet("{assetName}/machine")]
-        public ActionResult<List<string>> GetMachinesByAssetName(string? assetName)
+        [HttpGet("filter")]
+        public ActionResult<List<string>> GetMachineNamesByAssetName([FromQuery] string? assetName)
         {
             try
             {
                 if (!string.IsNullOrEmpty(assetName))
                 {
-                    assetName = assetName.ToLower().Trim();
+                    assetName = assetName.Trim().ToLower();
+                    var result = _machineService.GetMachinesByAssetName(assetName);
+                    if (result == null || (result != null &&  result.Count == 0))
+                    {
+                        return NotFound($"Did not find any Machine with the Asset named {assetName}");
+                    }
+                    return Ok(result);
                 }
-                var result =  _machineService.GetMachinesByAssetName(assetName);
-                if (result == null || (result != null &&  result.Count == 0))
-                {
-                    return NotFound($"Did not find any Machine with the Asset named {assetName}");
-                }
-                return Ok(result);
+                return BadRequest(); //todo return list of all machines if not specified
             }
             catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+                return StatusCode(500, "Internal Server Error");
             }
+
         }
+
+        ///// <summary>
+        ///// Gets the List of Machine names that are ussing specific Asset
+        ///// </summary>
+        ///// <param name="assetName">Asset name you want to look for</param>
+        ///// <response code="200">Information retrieved</response>
+        ///// <response code="404">Asset name does not exist</response>
+        ///// <response code="500">Internal Server Error</response>
+        ///// <returns>List of machines that uses specific Asset</returns>
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[HttpGet("{assetName}/machine")]
+        //public ActionResult<List<string>> GetMachinesByAssetName(string? assetName)
+        //{
+        //    try
+        //    {
+        //        if (!string.IsNullOrEmpty(assetName))
+        //        {
+        //            assetName = assetName.ToLower().Trim();
+        //        }
+        //        var result =  _machineService.GetMachinesByAssetName(assetName);
+        //        if (result == null || (result != null &&  result.Count == 0))
+        //        {
+        //            return NotFound($"Did not find any Machine with the Asset named {assetName}");
+        //        }
+        //        return Ok(result);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+        //    }
+        //}
 
         /// <summary>
         /// Gets the list of machine names that uses latest Assets
