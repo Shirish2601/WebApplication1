@@ -21,7 +21,7 @@ builder.Services.AddScoped<IMachineService, MachineService>();
 
 //builder.Services.AddScoped<MongoDbService, MongoDbService>();
 //builder.Services.AddScoped<MongoDbRepository, MongoDbRepository>();
-builder.Services.AddSingleton<IFileReader>(option => new JsonFileReader(builder.Configuration.GetSection("FileSettings")["FilePath"]));
+builder.Services.AddSingleton<IFileReader>(option => new TextFileReader(builder.Configuration.GetSection("FileSettings")["FilePath"]));
 
 builder.Services.Configure<MachineDataStoreSetting>(builder.Configuration.GetSection(nameof(MachineDataStoreSetting)));
 builder.Services.AddSingleton<IMachineDataStoreSetting>(option => option.GetRequiredService<IOptions<MachineDataStoreSetting>>().Value);

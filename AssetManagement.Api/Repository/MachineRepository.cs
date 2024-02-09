@@ -15,8 +15,7 @@ namespace AssetManagement.Api.Repository
 
         public List<Asset> GetAssetsByMachineName(string? machineName)
         {
-            return AppConstants.Machines.Where(machine => machine.MachineName?.ToLower() == machineName?.ToLower())
-                .First().Assets;
+            return AppConstants.Machines.Where(machine => machine.MachineName?.ToLower() == machineName?.ToLower())?.FirstOrDefault()?.Assets;
         }
 
         public List<Machine> GetMachines()
