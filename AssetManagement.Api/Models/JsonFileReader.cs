@@ -6,6 +6,7 @@ namespace AssetManagement.Api.Models
     public class JsonFileReader : IFileReader
     {
         public string Path { get; }
+        public List<Machine>? Machines { get; set; }
         public JsonFileReader(string path) 
         {
             Path = path;
@@ -19,7 +20,7 @@ namespace AssetManagement.Api.Models
                 .Select(group => new Machine { MachineName = group.Key, Assets = group.Select(asset => new Asset {AssetName = asset.AssetName, SeriesNumber = asset.SeriesNumber}).ToList()})
                 .ToList();
 
-            AppConstants.Machines = machineList ;
+            Machines = machineList;
         }
     }
 }

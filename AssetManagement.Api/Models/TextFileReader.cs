@@ -3,6 +3,7 @@ namespace AssetManagement.Api.Models
 {
     public class TextFileReader : IFileReader
     {
+        public List<Machine>? Machines { get; set; }
         public string Path { get; }
 
         public TextFileReader(string path)
@@ -33,7 +34,7 @@ namespace AssetManagement.Api.Models
                 .Select(group => new Machine { MachineName = group.Key, Assets = group.Select(asset => new Asset {AssetName = asset.AssetName, SeriesNumber = asset.SeriesNumber}).ToList()})
                 .ToList();
 
-            AppConstants.Machines = machineList;
+            Machines = machineList;
         }
     }
 }

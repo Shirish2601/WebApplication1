@@ -19,8 +19,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IMachineRepository, MongoDbRepository>();
 builder.Services.AddScoped<IMachineService, MongoDbService>();
 
-//builder.Services.AddScoped<MongoDbService, MongoDbService>();
-//builder.Services.AddScoped<MongoDbRepository, MongoDbRepository>();
 builder.Services.AddSingleton<IFileReader>(option => new TextFileReader(builder.Configuration.GetSection("FileSettings")["FilePath"]));
 
 builder.Services.Configure<MachineDataStoreSetting>(builder.Configuration.GetSection(nameof(MachineDataStoreSetting)));

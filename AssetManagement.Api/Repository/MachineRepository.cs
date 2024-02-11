@@ -6,27 +6,29 @@ namespace AssetManagement.Api.Repository
     public class MachineRepository : IMachineRepository
     {
         private readonly IFileReader _fileReader;
+        private readonly List<Machine>? _machines;
 
         public MachineRepository(IFileReader fileReader)
         {
             _fileReader = fileReader;
             _fileReader.Read();
+            _machines = _fileReader.Machines;
         }
 
         public List<Asset> GetAssetsByMachineName(string? machineName)
         {
-            return AppConstants.Machines.Where(machine => machine.MachineName?.ToLower() == machineName?.ToLower())?.FirstOrDefault()?.Assets;
+            return _machines.Where(machine => machine.MachineName?.ToLower() == machineName?.ToLower())?.FirstOrDefault()?.Assets;
         }
 
         public List<Machine> GetMachines()
         {
-            return AppConstants.Machines;
+            return _machines;
         }
 
         public List<string> GetMachineThatUsesLatestAssets()
         {
             Dictionary<string, int> assetDictionary = new();
-            AppConstants.Machines?.ForEach(m => { 
+            _machines?.ForEach(m => { 
                 m.Assets.ForEach(a =>
                 {
                     if (a.AssetName != null && !assetDictionary.ContainsKey(a.AssetName))
@@ -42,7 +44,7 @@ namespace AssetManagement.Api.Repository
                     }
                 });
             });
-            var machinesThatUsesLatestAssets = AppConstants.Machines?.FindAll(m => m.Assets.All(a => assetDictionary.ContainsKey(a.AssetName) && assetDictionary[a.AssetName] == int.Parse(a.SeriesNumber.Substring(1))))
+            var machinesThatUsesLatestAssets = _machines?.FindAll(m => m.Assets.All(a => assetDictionary.ContainsKey(a.AssetName) && assetDictionary[a.AssetName] == int.Parse(a.SeriesNumber.Substring(1))))
                 .Select(m => m.MachineName)
                 .ToList();
             return machinesThatUsesLatestAssets;
@@ -54,27 +56,27 @@ namespace AssetManagement.Api.Repository
             
             if (!string.IsNullOrEmpty(assetName) && !string.IsNullOrEmpty(seriesNumber))
             {
-                result = AppConstants.Machines?.Where(machine => machine.Assets.Any(asset =>
+                result = _machines?.Where(machine => machine.Assets.Any(asset =>
                         asset.AssetName.ToLower() == assetName.ToLower() &&
                         asset.SeriesNumber.ToLower() == seriesNumber.Trim().ToLower()))
                     .Select(machine => machine.MachineName).ToList();
             }
             else if (!string.IsNullOrEmpty(assetName))
             {
-                result = AppConstants.Machines.Where(machine => machine.Assets.Any(asset => asset.AssetName?.ToLower() == assetName.Trim().ToLower()))
+                result = _machines.Where(machine => machine.Assets.Any(asset => asset.AssetName?.ToLower() == assetName.Trim().ToLower()))
                     .Select(machine => machine.MachineName)
                     .ToList();
             }
             else if (!string.IsNullOrEmpty(seriesNumber))
             {
-                result = AppConstants.Machines
+                result = _machines
                     ?.Where(machine =>
                         machine.Assets.Any(asset => asset.SeriesNumber.ToLower() == seriesNumber.Trim().ToLower()))
                     .Select(machine => machine.MachineName).ToList();
             }
             else
             {
-                result = AppConstants.Machines?.Select(machine => machine.MachineName).ToList();
+                result = _machines?.Select(machine => machine.MachineName).ToList();
             }
 
             return result;
