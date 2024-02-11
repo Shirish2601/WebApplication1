@@ -6,7 +6,7 @@ namespace AssetManagement.Web.Services
     {
         Task<List<Asset>> GetAssets(string? machineName);
         Task<List<Machine>> GetMachines();
-        Task<List<string>> GetMachinesByAssetName(string? assetName);
         Task<List<string>> GetMachineThatUsesLatestAsset();
+        Task<List<string>> GetMachinesByAssetAndSeries(string? assetName, string? seriesNumber);
     }
 }

@@ -23,13 +23,6 @@ namespace AssetManagement.Api.Repository
             return AppConstants.Machines;
         }
 
-        public List<string> GetMachinesByAssetName(string? assetName)
-        {
-            return AppConstants.Machines.Where(machine => machine.Assets.Any(asset => asset.AssetName?.ToLower() == assetName?.Trim().ToLower()))
-                .Select(machine => machine.MachineName)
-                .ToList();
-        }
-
         public List<string> GetMachineThatUsesLatestAssets()
         {
             Dictionary<string, int> assetDictionary = new();
@@ -53,6 +46,38 @@ namespace AssetManagement.Api.Repository
                 .Select(m => m.MachineName)
                 .ToList();
             return machinesThatUsesLatestAssets;
+        }
+
+        public List<string> GetMachinesByAssetAndSeries(string? assetName, string? seriesNumber)
+        {
+            var result = new List<string>();
+            
+            if (!string.IsNullOrEmpty(assetName) && !string.IsNullOrEmpty(seriesNumber))
+            {
+                result = AppConstants.Machines?.Where(machine => machine.Assets.Any(asset =>
+                        asset.AssetName.ToLower() == assetName.ToLower() &&
+                        asset.SeriesNumber.ToLower() == seriesNumber.Trim().ToLower()))
+                    .Select(machine => machine.MachineName).ToList();
+            }
+            else if (!string.IsNullOrEmpty(assetName))
+            {
+                result = AppConstants.Machines.Where(machine => machine.Assets.Any(asset => asset.AssetName?.ToLower() == assetName.Trim().ToLower()))
+                    .Select(machine => machine.MachineName)
+                    .ToList();
+            }
+            else if (!string.IsNullOrEmpty(seriesNumber))
+            {
+                result = AppConstants.Machines
+                    ?.Where(machine =>
+                        machine.Assets.Any(asset => asset.SeriesNumber.ToLower() == seriesNumber.Trim().ToLower()))
+                    .Select(machine => machine.MachineName).ToList();
+            }
+            else
+            {
+                result = AppConstants.Machines?.Select(machine => machine.MachineName).ToList();
+            }
+
+            return result;
         }
     }
 }

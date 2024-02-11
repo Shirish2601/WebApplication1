@@ -26,18 +26,14 @@ namespace AssetManagement.Api.Services
             return _machineRepository.GetMachines();
         }
 
-        public List<string> GetMachinesByAssetName(string? assetName)
-        {
-            if (assetName == null)
-            {
-                throw new ArgumentNullException(nameof(assetName));
-            }
-            return _machineRepository.GetMachinesByAssetName(assetName);
-        }
-
         public List<string> GetMachineThatUsesLatestAssets()
         {
             return _machineRepository.GetMachineThatUsesLatestAssets();
+        }
+
+        public List<string> GetMachinesByAssetAndSeries(string? assetName, string? seriesNumber)
+        {
+            return _machineRepository.GetMachinesByAssetAndSeries(assetName, seriesNumber);
         }
     }
 }

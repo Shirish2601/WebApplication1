@@ -6,26 +6,43 @@
     <h5>Get the Machines by Asset name</h5>
     <label for="assetname">Asset Name:</label>
     <input id="assetname" type="text" placeholder="Enter the Asset Name" @bind="AssetName" />
+    <label for="seriesnumber">Series Number:</label>
+    <input id="seriesnumber" type="text" placeholder="Enter the Series Number" @bind="SeriesNumber" />
     <button class="btn btn-primary" @onclick="GetMachinesByAssetButtonHandler">Submit</button>
     @if (MachineNames != null)
     {
         @if (MachineNames.Count == 0)
         {
             <div class="result">
-                @if (string.IsNullOrEmpty(AssetName))
+                @if (!string.IsNullOrEmpty(AssetName) && !string.IsNullOrEmpty(SeriesNumber))
                 {
-                    <p>Asset name can't be empty</p>
+                    <p>Did not find any Machine with @AssetName Asset and @SeriesNumber Series</p>
                 }
-                else
+                @if (string.IsNullOrEmpty(AssetName) && !string.IsNullOrEmpty(SeriesNumber))
                 {
-                    <p>Did not find any Machine with @AssetName Asset</p>
+                    <p>Did not find any Machine with @SeriesNumber Series </p>
+                }
+                @if (!string.IsNullOrEmpty(AssetName) && string.IsNullOrEmpty(SeriesNumber))
+                {
+                    <p>Did not find any Machine with @AssetName Asset </p>
                 }
             </div>
         }
         else
         {
             <div class="result">
-                Machines that are using the @DisplayAssetName Asset
+                @if (!string.IsNullOrEmpty(SeriesNumber) && !string.IsNullOrEmpty(AssetName))
+                {
+                    <div>Machines that are using the @DisplayAssetName Asset and @SeriesNumber Series</div>
+                }
+                @if (string.IsNullOrEmpty(SeriesNumber) && !string.IsNullOrEmpty(AssetName))
+                {
+                    <div>Machines that are using the @DisplayAssetName Asset</div>
+                }
+                @if (!string.IsNullOrEmpty(SeriesNumber) && string.IsNullOrEmpty(AssetName))
+                {
+                    <div>Machines that are using the @SeriesNumber Series</div>
+                }
                 <ul>
                     @foreach (var machinename in MachineNames)
                     {

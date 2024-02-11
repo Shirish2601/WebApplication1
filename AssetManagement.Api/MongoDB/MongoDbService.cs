@@ -26,18 +26,14 @@ namespace AssetManagement.Api.MongoDB
             return _mongoDbRepository.GetMachines();
         }
 
-        public List<string> GetMachinesByAssetName(string? assetName)
-        {
-            if (assetName == null)
-            {
-                throw new ArgumentNullException(nameof(assetName));
-            }
-            return _mongoDbRepository.GetMachinesByAssetName(assetName);
-        }
-
         public List<string> GetMachineThatUsesLatestAssets()
         {
             return _mongoDbRepository.GetMachineThatUsesLatestAssets();
+        }
+
+        public List<string> GetMachinesByAssetAndSeries(string? assetName, string? seriesNumber)
+        {
+            return _mongoDbRepository.GetMachinesByAssetAndSeries(assetName, seriesNumber);
         }
     }
 }

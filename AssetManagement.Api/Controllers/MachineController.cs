@@ -68,43 +68,36 @@ namespace AssetManagement.Api.Controllers
             }
         }
 
-        /// <summary>
-        /// Gets the List of Machine names that are ussing specific Asset
-        /// </summary>
-        /// <param name="assetName">Asset name you want to look for</param>
-        /// <response code="200">Information retrieved</response>
-        /// <response code="404">Asset name does not exist</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <returns>List of machines names that uses specific Asset</returns>
+        /// <summary> Gets the list of machine names that are using a specific asset and series number</summary>
+        /// <param name="assetName">The name of the asset to search for.</param>
+        /// <param name="seriesNumber">The series number of the asset to search for.</param>
+        /// <response code="200">Returns the list of machine names that match the specified asset and series number.</response>
+        /// <response code="404">The specified asset name or series number does not exist.</response>
+        /// <response code="500">Internal server error.</response>
+        /// <returns>A list of machine names that use the specified asset and series number.</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("filter")]
-        public ActionResult<List<string>> GetMachineNamesByAssetName([FromQuery] string? assetName)
+        public ActionResult<List<string>> GetMachinesByAssetAndSeries([FromQuery] string? assetName, [FromQuery] string? seriesNumber)
         {
             try
             {
-                if (!string.IsNullOrEmpty(assetName))
+                var result = _machineService.GetMachinesByAssetAndSeries(assetName, seriesNumber);
+                if (result == null)
                 {
-                    assetName = assetName.Trim().ToLower();
-                    var result = _machineService.GetMachinesByAssetName(assetName);
-                    if (result == null || (result != null &&  result.Count == 0))
-                    {
-                        return NotFound($"Did not find any Machine with the Asset named {assetName}");
-                    }
-                    return Ok(result);
+                    return NotFound();
                 }
-                return BadRequest(); //todo return list of all machines if not specified
+                return Ok(result);
             }
             catch (Exception)
             {
                 return StatusCode(500, "Internal Server Error");
             }
-
         }
 
         ///// <summary>
-        ///// Gets the List of Machine names that are ussing specific Asset
+        ///// Gets the List of Machine names that are using specific Asset
         ///// </summary>
         ///// <param name="assetName">Asset name you want to look for</param>
         ///// <response code="200">Information retrieved</response>

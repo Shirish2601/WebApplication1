@@ -2,9 +2,8 @@
 
 namespace AssetManagement.Web.Pages
 {
-    public partial class DisplayAsset : ComponentBase
+    public partial class DisplayAsset
     {
-        
         [CascadingParameter]
         public Index Index { get; set; }
 

@@ -2,7 +2,7 @@
 
 namespace AssetManagement.Web.Pages
 {
-    public partial class MachineList : ComponentBase
+    public partial class MachineList
     {
         [CascadingParameter]
         public Index Index { get; set; }

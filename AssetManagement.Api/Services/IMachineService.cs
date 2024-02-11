@@ -6,7 +6,7 @@ namespace AssetManagement.Api.Services
     {
         public List<Machine> GetMachines();
         public List<Asset> GetAssetsByMachineName(string? machineName);
-        public List<string> GetMachinesByAssetName(string? assetName);
         public List<string> GetMachineThatUsesLatestAssets();
+        public List<string> GetMachinesByAssetAndSeries(string? assetName, string? seriesNumber);
     }
 }

@@ -8,17 +8,16 @@ namespace AssetManagement.Web.Pages
         [Inject]
         public IMachineService MachineService { get; set; }
         public string? AssetName { get; set; }
+        public string? SeriesNumber { get; set; }
         public string? DisplayAssetName { get; set; }
         public List<string>? MachineNames { get; set; }
         protected async void GetMachinesByAssetButtonHandler()
         {
             try
             {
-                if (AssetName != null)
-                {
-                    AssetName = AssetName.Trim();
-                }
-                MachineNames = (await MachineService.GetMachinesByAssetName(AssetName)).ToList();
+                AssetName = AssetName?.Trim();
+                SeriesNumber = SeriesNumber?.Trim();
+                MachineNames = (await MachineService.GetMachinesByAssetAndSeries(AssetName, SeriesNumber)).ToList();
                 DisplayAssetName = AssetName;
             }
             catch (Exception)

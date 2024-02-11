@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Components;
 
 namespace AssetManagement.Web.Pages
 {
-    public partial class Index : ComponentBase
+    public partial class Index
     {
         [Inject]
         public IMachineService MachineService { get; set; }
-        public List<Machine> Machines { get; set; } = new();
+        public List<Machine>? Machines { get; set; } = new();
         public Dictionary<string, bool> CheckIfButtonIsClicked { get; set; } = new();
 
         protected override async Task OnInitializedAsync()

@@ -13,7 +13,7 @@ namespace AssetManagement.Api.MongoDB
             var db = client.GetDatabase(machineDataStoreSetting.DatabaseName);
             _machineCollection = db.GetCollection<MachineModel>(machineDataStoreSetting.CollectionName);
 
-            var countOfDocumentsInCollection = _machineCollection.CountDocuments(machine => true);
+                var countOfDocumentsInCollection = _machineCollection.CountDocuments(machine => true);
 
             if (countOfDocumentsInCollection == 0)
             {
@@ -70,12 +70,7 @@ namespace AssetManagement.Api.MongoDB
             var result = _machineCollection.Find(machine => true).Project(machine => new Machine { MachineName = machine.MachineName, Assets = machine.Assets }).ToList();
             return result;
         }
-        public List<string> GetMachinesByAssetName(string? assetName)
-        {
-            var filterQuery = Builders<MachineModel>.Filter.ElemMatch(machine => machine.Assets, asset => asset.AssetName.ToLower() == assetName.ToLower());
-            return _machineCollection.Find(filterQuery).Project(machine => machine.MachineName).ToList();
-        }
-
+        
         public List<string> GetMachineThatUsesLatestAssets()
         {
             List<MachineModel> machineList = _machineCollection.Find(machine => true).ToList();
@@ -104,6 +99,27 @@ namespace AssetManagement.Api.MongoDB
                 .Select(machine => machine.MachineName)
                 .ToList();
             return machineThatUsesLatestAsset;
+        }
+
+        public List<string> GetMachinesByAssetAndSeries(string? assetName, string? seriesNumber)
+        {
+            var filterQuery = Builders<MachineModel>.Filter.Empty;
+
+            if (!string.IsNullOrEmpty(assetName) && !string.IsNullOrEmpty(seriesNumber))
+            {
+                filterQuery = Builders<MachineModel>.Filter.ElemMatch(machine => machine.Assets,
+                    asset => asset.AssetName.ToLower() == assetName.Trim().ToLower() && asset.SeriesNumber.ToLower() == seriesNumber.Trim().ToLower());
+            }
+            else if (!string.IsNullOrEmpty(assetName))
+            {
+                filterQuery = Builders<MachineModel>.Filter.ElemMatch(machine => machine.Assets, asset => asset.AssetName.ToLower() == assetName.Trim().ToLower());
+            }
+            else if (!string.IsNullOrEmpty(seriesNumber))
+            {
+                filterQuery = Builders<MachineModel>.Filter.ElemMatch(machine => machine.Assets, asset => asset.SeriesNumber.ToLower() == seriesNumber.Trim().ToLower());
+            }
+
+            return _machineCollection.Find(filterQuery).Project(machine => machine.MachineName).ToList();
         }
     }
 }
