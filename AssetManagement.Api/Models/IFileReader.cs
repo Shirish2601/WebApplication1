@@ -6,7 +6,6 @@ namespace AssetManagement.Api.Models
     {
         public List<Machine>? Machines { get; set; }
         public string? Path { get; }
-
         void Read();
     }
 }

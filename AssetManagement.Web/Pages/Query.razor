@@ -16,7 +16,7 @@
             <div class="result">
                 @if (!string.IsNullOrEmpty(AssetName) && !string.IsNullOrEmpty(SeriesNumber))
                 {
-                    <p>Did not find any Machine with @AssetName Asset and @SeriesNumber Series</p>
+                    <p>Did not find any Machine with @AssetName Asset of @SeriesNumber Series</p>
                 }
                 @if (string.IsNullOrEmpty(AssetName) && !string.IsNullOrEmpty(SeriesNumber))
                 {
@@ -33,7 +33,7 @@
             <div class="result">
                 @if (!string.IsNullOrEmpty(SeriesNumber) && !string.IsNullOrEmpty(AssetName))
                 {
-                    <div>Machines that are using the @DisplayAssetName Asset and @SeriesNumber Series</div>
+                    <div>Machines that are using the @DisplayAssetName Asset of @SeriesNumber Series</div>
                 }
                 @if (string.IsNullOrEmpty(SeriesNumber) && !string.IsNullOrEmpty(AssetName))
                 {
