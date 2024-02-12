@@ -1,5 +1,4 @@
-﻿using AssetManagement.Models;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace AssetManagement.Web.Pages
 {
@@ -7,8 +6,5 @@ namespace AssetManagement.Web.Pages
     {
         [CascadingParameter]
         public Index Index { get; set; }
-        public string SearchQuery { get; set; }
-        
-        public bool ToggleSubmitButton => string.IsNullOrEmpty(SearchQuery);
     }
 }
