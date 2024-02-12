@@ -14,10 +14,6 @@ namespace AssetManagement.Api.Services
         }
         public List<Asset> GetAssetsByMachineName(string? machineName)
         {
-            if (machineName == null)
-            {
-                throw new ArgumentNullException(nameof(machineName));
-            }
             return _machineRepository.GetAssetsByMachineName(machineName);
         }
 
