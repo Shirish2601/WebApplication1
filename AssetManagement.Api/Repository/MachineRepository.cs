@@ -56,10 +56,9 @@ namespace AssetManagement.Api.Repository
             
             if (!string.IsNullOrEmpty(assetName) && !string.IsNullOrEmpty(seriesNumber))
             {
-                result = _machines?.Where(machine => machine.Assets.Any(asset =>
-                        asset.AssetName.ToLower() == assetName.ToLower() &&
-                        asset.SeriesNumber.ToLower() == seriesNumber.Trim().ToLower()))
-                    .Select(machine => machine.MachineName).ToList();
+                result = _machines?.Where(machine => machine.Assets.Any(asset => asset.AssetName.ToLower() == assetName.ToLower() && asset.SeriesNumber.ToLower() == seriesNumber.Trim().ToLower()))
+                    .Select(machine => machine.MachineName)
+                    .ToList();
             }
             else if (!string.IsNullOrEmpty(assetName))
             {
@@ -69,9 +68,7 @@ namespace AssetManagement.Api.Repository
             }
             else if (!string.IsNullOrEmpty(seriesNumber))
             {
-                result = _machines
-                    ?.Where(machine =>
-                        machine.Assets.Any(asset => asset.SeriesNumber.ToLower() == seriesNumber.Trim().ToLower()))
+                result = _machines?.Where(machine => machine.Assets.Any(asset => asset.SeriesNumber.ToLower() == seriesNumber.Trim().ToLower()))
                     .Select(machine => machine.MachineName).ToList();
             }
             else
