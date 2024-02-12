@@ -14,10 +14,6 @@ namespace AssetManagement.Api.MongoDB
 
         public List<Asset> GetAssetsByMachineName(string? machineName)
         {
-            if (machineName == null)
-            {
-                throw new ArgumentNullException(nameof(machineName));
-            }
             return _mongoDbRepository.GetAssetsByMachineName(machineName);
         }
 
