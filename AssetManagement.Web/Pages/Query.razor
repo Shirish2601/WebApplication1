@@ -8,7 +8,7 @@
     <input id="assetname" type="text" placeholder="Enter the Asset Name" @bind="AssetName" />
     <label for="seriesnumber">Series Number:</label>
     <input id="seriesnumber" type="text" placeholder="Enter the Series Number" @bind="SeriesNumber" />
-    <button class="btn btn-primary" @onclick="GetMachinesByAssetButtonHandler">Submit</button>
+    <button class="btn btn-primary" @onclick="GetMachinesByAssetAndSeriesButtonHandler">Submit</button>
     @if (MachineNames != null)
     {
         @if (MachineNames.Count == 0)

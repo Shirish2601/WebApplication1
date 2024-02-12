@@ -11,7 +11,7 @@ namespace AssetManagement.Web.Pages
         public string? SeriesNumber { get; set; }
         public string? DisplayAssetName { get; set; }
         public List<string>? MachineNames { get; set; }
-        protected async void GetMachinesByAssetButtonHandler()
+        protected async void GetMachinesByAssetAndSeriesButtonHandler()
         {
             try
             {
